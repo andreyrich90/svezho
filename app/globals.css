@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  "Свежо" palette. Colour channels (space-separated RGB) referenced by the
+  Tailwind tokens in tailwind.config.ts as rgb(var(--c-*) / <alpha-value>).
+  Light is the default on bare :root; dark is opt-in under [data-theme="dark"].
+*/
+:root {
+  --c-cream: 246 240 228;   /* #f6f0e4 page background */
+  --c-cream2: 239 230 211;  /* #efe6d3 warm secondary surface */
+  --c-surface: 255 255 255; /* white raised surface */
+  --c-card: 255 255 255;    /* card */
+  --c-ink: 38 48 31;        /* #26301f primary text */
+  --c-muted: 92 101 83;     /* secondary text */
+  --c-line: 214 208 193;    /* hairline */
+  --c-basil: 47 61 38;      /* #2f3d26 forest — primary */
+  --c-basil2: 63 82 49;     /* #3f5231 forest lighter */
+  --c-basil-ink: 47 61 38;  /* forest as text */
+  --c-clay: 193 85 46;      /* #c1552e terracotta — CTA / accent */
+  --c-clay2: 168 67 31;     /* #a8431f terracotta darker */
+  --c-honey: 217 164 65;    /* #d9a441 mustard — numbers / highlight */
+  --c-leaf: 124 154 90;     /* #7c9a5a leaf green */
+}
+
+[data-theme="dark"] {
+  --c-cream: 26 32 21;
+  --c-cream2: 33 41 27;
+  --c-surface: 34 43 28;
+  --c-card: 40 50 33;
+  --c-ink: 240 238 226;
+  --c-muted: 168 178 150;
+  --c-line: 60 72 50;
+  --c-basil: 150 180 120;
+  --c-basil2: 124 154 90;
+  --c-basil-ink: 172 196 140;
+  --c-clay: 214 110 70;
+  --c-clay2: 197 92 55;
+  --c-honey: 226 178 90;
+  --c-leaf: 150 180 120;
+}
+
+* {
+  border-color: rgb(var(--c-line));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--c-cream));
+  color: rgb(var(--c-ink));
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Subtle dotted paper texture behind everything (from the design concept). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgb(var(--c-ink) / 0.05) 1px,
+    transparent 0
+  );
+  background-size: 22px 22px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Everything sits above the texture. */
+#app-root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Conic-gradient logo ring. */
+.logo-ring {
+  background: conic-gradient(
+    from 210deg,
+    rgb(var(--c-leaf)),
+    rgb(var(--c-honey)),
+    rgb(var(--c-clay)),
+    rgb(var(--c-leaf))
+  );
+}
+
+/* Warm dawn-kitchen hero wash. */
+.hero-surface {
+  background:
+    radial-gradient(1100px 480px at 82% -10%, rgb(var(--c-honey) / 0.22), transparent 60%),
+    radial-gradient(880px 460px at 0% 0%, rgb(var(--c-leaf) / 0.2), transparent 55%),
+    rgb(var(--c-cream));
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise { animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.rise-1 { animation-delay: 0.08s; }
+.rise-2 { animation-delay: 0.16s; }
+.rise-3 { animation-delay: 0.24s; }
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-10px) rotate(-4deg); }
+}
+.floaty { animation: floaty 5.5s ease-in-out infinite; }
+
+/* Hide scrollbar on the horizontal lifehacks rail. */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+.clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
