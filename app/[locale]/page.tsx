@@ -89,6 +89,14 @@ export default async function HomePage({
               <Stat value={`${pp.length}`} label={t["home.stats.pp"]} />
               <Stat value={`${lifehacks.length}`} label={t["home.stats.lifehacks"]} />
             </div>
+
+            {/* Hero image on mobile (the side visual is desktop-only). */}
+            {heroImgs[0] && (
+              <div className="rise rise-2 mt-9 overflow-hidden rounded-[24px] border-[5px] border-cream shadow-soft lg:hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={heroImgs[0].image} alt="" className="h-56 w-full object-cover sm:h-72" />
+              </div>
+            )}
           </div>
 
           {/* Hero visual */}

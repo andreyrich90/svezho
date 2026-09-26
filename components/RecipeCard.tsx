@@ -25,10 +25,10 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
           loading="lazy"
           className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.08]"
         />
-        <span className="absolute left-3.5 top-3.5 rounded-full bg-surface/92 px-3 py-1.5 text-[11.5px] font-extrabold tracking-wide text-basil2">
-          {recipe.calories} {t("recipe.kcal")}
+        <span className="absolute left-3.5 top-3.5 rounded-full bg-surface/92 px-3 py-1.5 text-[11.5px] font-extrabold tracking-wide text-clay shadow-card">
+          {t(`cat.${recipe.category}`)}
         </span>
-        <span className="absolute right-3.5 top-3.5 flex h-[34px] w-[34px] items-center justify-center rounded-full bg-surface/92 text-clay transition group-hover:scale-110">
+        <span className="absolute right-3.5 top-3.5 flex h-[34px] w-[34px] items-center justify-center rounded-full bg-surface/92 text-clay shadow-card transition group-hover:scale-110">
           <Heart size={16} />
         </span>
       </div>
