@@ -20,6 +20,11 @@ const CAT_RU: Record<string, string> = {
   dessert: "Десерты", drink: "Напитки", baking: "Выпечка", snack: "Перекусы",
 };
 
+const CAT_EMOJI: Record<string, string> = {
+  breakfast: "🍳", soup: "🍲", main: "🍝", salad: "🥗",
+  dessert: "🍰", drink: "🥤", baking: "🥐", snack: "🧀",
+};
+
 type AuthFetch = (u: string, o?: RequestInit) => Promise<Response>;
 
 // ---- form value shape (all strings; arrays edited as newline / comma text) ----
@@ -193,17 +198,106 @@ export default function AdminPage() {
 
       {error && <p className="mb-4 text-sm font-semibold text-clay">{error}</p>}
 
-      <div className="mb-3 text-sm font-semibold text-muted">
-        Всего рецептов: {recipes.length}
+      <RecipeList recipes={recipes} loading={loading} authFetch={authFetch} onUpdated={() => load()} />
+    </div>
+  );
+}
+
+// ------------------------- grouped recipe list -------------------------
+// Recipes grouped by category (collapsible), with a "no photo only" filter and
+// a title search, so photos can be added one rubric at a time from a phone.
+function RecipeList({
+  recipes,
+  loading,
+  authFetch,
+  onUpdated,
+}: {
+  recipes: RecipeRow[];
+  loading: boolean;
+  authFetch: AuthFetch;
+  onUpdated: () => void;
+}) {
+  const [onlyNoPhoto, setOnlyNoPhoto] = useState(false);
+  const [q, setQ] = useState("");
+
+  const query = q.trim().toLowerCase();
+  const visible = recipes.filter(
+    (r) =>
+      (!onlyNoPhoto || !r.image) &&
+      (!query || (r.title?.ru || r.slug).toLowerCase().includes(query))
+  );
+  const noPhotoTotal = recipes.filter((r) => !r.image).length;
+
+  // Known categories first (in menu order), then anything unexpected.
+  const cats = [
+    ...CATEGORIES,
+    ...Array.from(new Set(recipes.map((r) => r.category))).filter((c) => !CATEGORIES.includes(c)),
+  ];
+  const groups = cats
+    .map((cat) => ({
+      cat,
+      all: recipes.filter((r) => r.category === cat),
+      items: visible.filter((r) => r.category === cat),
+    }))
+    .filter((g) => g.items.length > 0);
+
+  return (
+    <div>
+      <div className="mb-4 rounded-xl2 border border-line bg-surface p-3.5">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-semibold">
+          <span className="text-ink">Всего рецептов: {recipes.length}</span>
+          <span className={noPhotoTotal ? "text-clay" : "text-leaf"}>Без фото: {noPhotoTotal}</span>
+        </div>
+        <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="🔍 Найти рецепт по названию"
+            className="min-w-0 flex-1 rounded-full border border-line bg-cream2 px-4 py-2.5 text-sm outline-none focus:border-basil"
+          />
+          <button
+            onClick={() => setOnlyNoPhoto((v) => !v)}
+            className={`shrink-0 rounded-full px-4 py-2.5 text-sm font-bold transition ${
+              onlyNoPhoto ? "bg-clay text-white" : "border border-line bg-surface text-ink"
+            }`}
+          >
+            {onlyNoPhoto ? "✓ Только без фото" : "Только без фото"}
+          </button>
+        </div>
       </div>
-      <div className="flex flex-col gap-3">
-        {recipes.map((r) => (
-          <RecipeItem key={r.id} recipe={r} authFetch={authFetch} onUpdated={() => load()} />
-        ))}
-        {recipes.length === 0 && !loading && (
-          <p className="text-muted">Пока нет рецептов.</p>
-        )}
-      </div>
+
+      {groups.map((g) => {
+        const noPhoto = g.all.filter((r) => !r.image).length;
+        return (
+          <details key={g.cat} open className="group mb-5">
+            <summary className="sticky top-0 z-10 mb-2 flex cursor-pointer list-none items-center justify-between gap-2 rounded-xl bg-basil px-4 py-3 text-cream shadow-soft [&::-webkit-details-marker]:hidden">
+              <span className="text-base font-bold">
+                {CAT_EMOJI[g.cat] || "🍽️"} {CAT_RU[g.cat] || g.cat}
+                <span className="ml-2 text-sm font-semibold text-cream/70">· {g.all.length}</span>
+              </span>
+              <span className="flex items-center gap-2 text-xs font-semibold">
+                {noPhoto > 0 ? (
+                  <span className="rounded-full bg-clay px-2 py-0.5 text-white">без фото: {noPhoto}</span>
+                ) : (
+                  <span className="rounded-full bg-leaf px-2 py-0.5 text-white">все с фото ✓</span>
+                )}
+                <span className="transition group-open:rotate-180">▾</span>
+              </span>
+            </summary>
+            <div className="flex flex-col gap-3">
+              {g.items.map((r) => (
+                <RecipeItem key={r.id} recipe={r} authFetch={authFetch} onUpdated={onUpdated} />
+              ))}
+            </div>
+          </details>
+        );
+      })}
+
+      {groups.length === 0 && !loading && (
+        <p className="text-muted">
+          {recipes.length === 0 ? "Пока нет рецептов." : "Ничего не найдено по фильтру."}
+        </p>
+      )}
     </div>
   );
 }
@@ -601,6 +695,11 @@ function RecipeItem({
   const fileRef = useRef<HTMLInputElement>(null);
   const galleryRef = useRef<HTMLInputElement>(null);
   const cover = recipe.image || `/img/recipes/${recipe.category}.svg`;
+  const inCollections = COLLECTIONS.filter((c) => c.recipeSlugs.includes(recipe.slug)).map(
+    (c) => `${c.emoji} ${c.title.ru}`
+  );
+  const pill =
+    "rounded-full border border-line bg-surface px-3 py-1.5 text-[13px] font-semibold text-ink/80 transition hover:border-basil disabled:opacity-60";
   const gallery = recipe.gallery || [];
 
   async function openEdit() {
@@ -752,73 +851,74 @@ function RecipeItem({
   }
 
   return (
-    <div className="rounded-xl2 border border-line bg-surface p-3">
-      <div className="flex items-center gap-4">
+    <div className="rounded-xl2 border border-line bg-surface p-3.5">
+      <div className="flex gap-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={cover} alt="" className="h-16 w-16 shrink-0 rounded-lg object-cover" />
+        <img src={cover} alt="" className="h-20 w-20 shrink-0 rounded-lg object-cover" />
         <div className="min-w-0 flex-1">
-          <div className="truncate font-semibold text-ink">
+          <div className="break-words text-[15px] font-semibold leading-snug text-ink">
             {recipe.title?.ru || recipe.slug}
           </div>
-          <div className="mt-0.5 flex items-center gap-2 text-xs text-muted">
-            <span className="rounded bg-cream2 px-1.5 py-0.5">{CAT_RU[recipe.category] || recipe.category}</span>
-            {recipe.is_pp && <span className="rounded bg-leaf/20 px-1.5 py-0.5 text-basil2">ПП</span>}
-            <span className={recipe.image ? "text-leaf" : "text-clay"}>
-              {recipe.image ? "фото есть" : "нет фото"}
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs font-semibold">
+            <span className="rounded-full bg-cream2 px-2 py-0.5 text-ink/80">
+              {CAT_EMOJI[recipe.category] || "🍽️"} {CAT_RU[recipe.category] || recipe.category}
             </span>
+            {recipe.is_pp && <span className="rounded-full bg-leaf/20 px-2 py-0.5 text-basil2">ПП</span>}
+            <span
+              className={`rounded-full px-2 py-0.5 ${
+                recipe.image ? "bg-leaf/20 text-basil2" : "bg-clay/10 text-clay"
+              }`}
+            >
+              {recipe.image ? "✓ фото есть" : "нет фото"}
+            </span>
+            <span className="rounded-full bg-cream2 px-2 py-0.5 text-muted">шаги: {gallery.length}</span>
           </div>
-          {msg && <div className="mt-1 text-xs font-semibold text-basil2">{msg}</div>}
+          {inCollections.length > 0 && (
+            <div className="mt-1.5 text-xs text-muted">📚 {inCollections.join(" · ")}</div>
+          )}
+          {msg && <div className="mt-1.5 text-xs font-semibold text-basil2">{msg}</div>}
         </div>
-        <input
-          ref={fileRef}
-          type="file"
-          accept="image/jpeg,image/png,image/webp,image/avif"
-          className="hidden"
-          onChange={(e) => {
-            const f = e.target.files?.[0];
-            if (f) upload(f);
-            e.target.value = "";
-          }}
-        />
-        <div className="flex shrink-0 flex-col items-end gap-1.5">
-          <button
-            onClick={() => fileRef.current?.click()}
-            disabled={busy}
-            className="rounded-full bg-basil px-4 py-2 text-sm font-bold text-cream transition hover:bg-basil2 disabled:opacity-60"
-          >
-            {busy ? "…" : recipe.image ? "Заменить фото" : "Загрузить фото"}
-          </button>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => (editing ? setEditing(false) : openEdit())}
-              disabled={busy}
-              className="text-xs font-semibold text-basil hover:underline"
-            >
-              ✎ {editing ? "закрыть" : "редактировать"}
-            </button>
-            <button
-              onClick={del}
-              disabled={busy}
-              className="text-xs font-semibold text-clay hover:underline"
-            >
-              🗑 удалить
-            </button>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowUrl((v) => !v)}
-              className="text-xs font-semibold text-muted hover:text-ink"
-            >
-              🔗 ссылка
-            </button>
-            <button
-              onClick={() => setShowGallery((v) => !v)}
-              className="text-xs font-semibold text-muted hover:text-ink"
-            >
-              🖼 шаги ({gallery.length})
-            </button>
-          </div>
-        </div>
+      </div>
+
+      <input
+        ref={fileRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/avif"
+        className="hidden"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f) upload(f);
+          e.target.value = "";
+        }}
+      />
+
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <button
+          onClick={() => fileRef.current?.click()}
+          disabled={busy}
+          className="rounded-full bg-basil px-4 py-2 text-sm font-bold text-cream transition hover:bg-basil2 disabled:opacity-60"
+        >
+          {busy ? "…" : recipe.image ? "📷 Заменить фото" : "📷 Загрузить фото"}
+        </button>
+        <button
+          onClick={() => setShowGallery((v) => !v)}
+          className={`${pill} ${showGallery ? "border-basil text-basil" : ""}`}
+        >
+          🖼 Фото шагов ({gallery.length})
+        </button>
+        <button
+          onClick={() => (editing ? setEditing(false) : openEdit())}
+          disabled={busy}
+          className={`${pill} ${editing ? "border-basil text-basil" : ""}`}
+        >
+          ✎ {editing ? "Закрыть" : "Изменить"}
+        </button>
+        <button onClick={() => setShowUrl((v) => !v)} className={pill}>
+          🔗 Ссылка
+        </button>
+        <button onClick={del} disabled={busy} className={`${pill} text-clay`}>
+          🗑 Удалить
+        </button>
       </div>
 
       {editing && editForm && (
