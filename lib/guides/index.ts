@@ -48,12 +48,19 @@ import { guide as tvorog } from "./domashniy-tvorog-i-syr";
 import { guide as pechenye } from "./sekrety-pechenya";
 import { guide as mery } from "./mery-i-vesa";
 import { guide as ryba2 } from "./solenie-ryby";
+import { guide as holodec } from "./holodec-i-zalivnoe";
+import { guide as sushi } from "./sushi-i-rolly";
+import { guide as morozhenoe } from "./domashnee-morozhenoe";
+import { guide as tort } from "./kak-sobrat-tort";
+import { guide as mikrovolnovka } from "./gotovka-v-mikrovolnovke";
+import { guide as utka } from "./utka-i-indeyka";
 
 export type { Guide, GuideSection, GuideFaq } from "./types";
 
 // "Секреты кухни" — long-read articles, newest first. Add a new article by
 // creating lib/guides/<slug>.ts and listing it here.
 export const GUIDES: Guide[] = [
+  sushi, tort, morozhenoe, holodec, utka, mikrovolnovka,
   mery, ryba2, pechenye, griby, tvorog, bobovye,
   prazdnik, farsh, deserty, sousyMyaso, napitki, frityur,
   vok, ovoshchi, kashi, menyu, sloenoe, bezYaic,
