@@ -18,12 +18,19 @@ import { guide as ryba } from "./ryba-i-moreprodukty";
 import { guide as zapravki } from "./zapravki-i-marinady";
 import { guide as spasti } from "./kak-spasti-blyudo";
 import { guide as pesochnoe } from "./pesochnoe-i-zavarnoe-testo";
+import { guide as shokolad } from "./sekrety-shokolada";
+import { guide as pizza } from "./testo-dlya-piccy";
+import { guide as kartofel } from "./sekrety-kartofelya";
+import { guide as tushenie } from "./tushenie-i-zapekanie";
+import { guide as nozhi } from "./nozhi-i-narezka";
+import { guide as zagotovki } from "./domashnie-zagotovki";
 
 export type { Guide, GuideSection, GuideFaq } from "./types";
 
 // "Секреты кухни" — long-read articles, newest first. Add a new article by
 // creating lib/guides/<slug>.ts and listing it here.
 export const GUIDES: Guide[] = [
+  pizza, kartofel, shokolad, tushenie, nozhi, zagotovki,
   spasti, supy, pelmeni, ryba, zapravki, pesochnoe,
   bliny, yaica, testo, specii, ris, hranenie,
   klyar, kotlety, kremy, biskvit, myaso, sousy,
