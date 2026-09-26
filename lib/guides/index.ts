@@ -6,12 +6,21 @@ import { guide as kremy } from "./sekrety-kremov";
 import { guide as biskvit } from "./pyshnyy-biskvit";
 import { guide as myaso } from "./kak-zharit-myaso-i-kuricu";
 import { guide as sousy } from "./sekrety-sousov";
+import { guide as ris } from "./ris-grechka-pasta";
+import { guide as yaica } from "./sekrety-yaic";
+import { guide as specii } from "./specii-i-sol";
+import { guide as bliny } from "./bliny-i-syrniki";
+import { guide as testo } from "./drozhzhevoe-testo";
+import { guide as hranenie } from "./hranenie-i-zamorozka";
 
 export type { Guide, GuideSection, GuideFaq } from "./types";
 
 // "Секреты кухни" — long-read articles, newest first. Add a new article by
 // creating lib/guides/<slug>.ts and listing it here.
-export const GUIDES: Guide[] = [klyar, kotlety, kremy, biskvit, myaso, sousy];
+export const GUIDES: Guide[] = [
+  bliny, yaica, testo, specii, ris, hranenie,
+  klyar, kotlety, kremy, biskvit, myaso, sousy,
+];
 
 export function findGuide(slug: string): Guide | undefined {
   return GUIDES.find((g) => g.slug === slug);
