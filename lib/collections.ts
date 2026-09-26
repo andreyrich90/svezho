@@ -146,6 +146,26 @@ export const COLLECTIONS: Collection[] = [
       "smuzi-boul",
     ],
   },
+  {
+    slug: "8-salatov",
+    emoji: "🥗",
+    title: { ru: "8 салатов", en: "8 salads", ua: "8 салатів" },
+    description: {
+      ru: "От праздничных оливье и мимозы до лёгких ПП-салатов с тунцом, креветками и капрезе. Салат на будни и на праздник — выбирайте любой.",
+      en: "From festive Olivier and Mimosa to light healthy salads with tuna, shrimp and Caprese. A salad for weekdays and celebrations — pick any.",
+      ua: "Від святкових олів'є та мімози до легких ПХ-салатів із тунцем, креветками й капрезе. Салат на будні й на свято — обирайте будь-який.",
+    },
+    recipeSlugs: [
+      "salat-cezar-s-kuricey",
+      "salat-olivye",
+      "salat-mimoza",
+      "vinegret",
+      "teplyy-salat-s-kuricey",
+      "salat-s-tuncom-i-fasolyu",
+      "salat-s-krevetkami-i-avokado",
+      "salat-kapreze",
+    ],
+  },
 ];
 
 export function findCollection(slug: string): Collection | undefined {
