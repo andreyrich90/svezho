@@ -106,6 +106,26 @@ export const COLLECTIONS: Collection[] = [
       "kurinyy-sup-s-lapshoy",
     ],
   },
+  {
+    slug: "8-bystryh-desertov",
+    emoji: "🍰",
+    title: { ru: "8 быстрых десертов", en: "8 quick desserts", ua: "8 швидких десертів" },
+    description: {
+      ru: "Сладкое на любой случай: шоколадный фондан, чизкейк без выпечки, тирамису, банановый хлеб и лёгкие ПП-варианты. Выбирайте любой рецепт.",
+      en: "Something sweet for any occasion: chocolate fondant, no-bake cheesecake, tiramisu, banana bread and light healthy options. Pick any recipe.",
+      ua: "Солодке на будь-який випадок: шоколадний фондан, чизкейк без випікання, тірамісу, банановий хліб і легкі ПХ-варіанти. Обирайте будь-який рецепт.",
+    },
+    recipeSlugs: [
+      "shokoladnyy-fondan",
+      "chizkeyk-bez-vypechki",
+      "tiramisu-klassicheskiy",
+      "ovsyanoe-pechenye",
+      "bananovyy-hleb",
+      "tvorozhnaya-zapekanka",
+      "sharlotka-s-yablokami",
+      "shokoladnyy-brauni",
+    ],
+  },
 ];
 
 export function findCollection(slug: string): Collection | undefined {
