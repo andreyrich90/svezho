@@ -6,7 +6,6 @@ import CollectionCard from "@/components/CollectionCard";
 import HeroSearch from "@/components/HeroSearch";
 import LifehacksStrip from "@/components/LifehacksStrip";
 import MealPlanBanner from "@/components/MealPlanBanner";
-import Newsletter from "@/components/Newsletter";
 import { getDict } from "@/lib/i18n";
 import { isLang, type Lang } from "@/lib/langs";
 import { href } from "@/lib/nav";
@@ -170,9 +169,6 @@ export default async function HomePage({
 
       {/* Meal plan */}
       <MealPlanBanner />
-
-      {/* Newsletter */}
-      <Newsletter />
     </>
   );
 }
