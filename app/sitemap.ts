@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { LOCALES, type Lang } from "@/lib/langs";
 import { SITE_URL, localePath } from "@/lib/seo";
 import { COLLECTIONS } from "@/lib/collections";
+import { RECIPE_CATEGORIES } from "@/lib/types";
 import { getLifehacks, getRecipes } from "@/lib/content";
 
 // Re-generate at most every 30 min so new recipes enter the sitemap without a
@@ -40,6 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const out: MetadataRoute.Sitemap = [];
   for (const [p, prio, cf] of staticPaths) out.push(...entries(p, prio, cf));
+  for (const cat of RECIPE_CATEGORIES) out.push(...entries(`/recipes/category/${cat}`, 0.7, "weekly"));
   for (const c of COLLECTIONS) out.push(...entries(`/collections/${c.slug}`, 0.7, "weekly"));
   for (const r of recipes) out.push(...entries(`/recipes/${r.slug}`, 0.8, "weekly"));
   for (const l of lifehacks) out.push(...entries(`/lifehacks/${l.slug}`, 0.6, "monthly"));

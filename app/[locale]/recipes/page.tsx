@@ -30,10 +30,10 @@ export default async function RecipesPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ cat?: string }>;
+  searchParams: Promise<{ cat?: string; q?: string }>;
 }) {
   const { locale } = await params;
-  const { cat } = await searchParams;
+  const { cat, q } = await searchParams;
   const lang: Lang = isLang(locale) ? locale : "ru";
   const t = getDict(lang);
   const recipes = await getRecipes();
@@ -47,7 +47,7 @@ export default async function RecipesPage({
       <div className="mb-8">
         <CategoryChips />
       </div>
-      <RecipeExplorer recipes={recipes} initialCategory={cat || "all"} />
+      <RecipeExplorer recipes={recipes} initialCategory={cat || "all"} initialQuery={q || ""} />
     </div>
   );
 }

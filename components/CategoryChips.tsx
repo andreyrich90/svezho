@@ -24,7 +24,7 @@ export default function CategoryChips() {
   return (
     <div className="flex flex-wrap gap-3">
       {CHIPS.map((c) => (
-        <Link key={c.cat} href={href(lang, `/recipes?cat=${c.cat}`)} className={base}>
+        <Link key={c.cat} href={href(lang, `/recipes/category/${c.cat}`)} className={base}>
           <span>{c.emoji}</span> {t(`cat.${c.cat}`)}
         </Link>
       ))}

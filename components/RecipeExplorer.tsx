@@ -11,14 +11,16 @@ export default function RecipeExplorer({
   recipes,
   initialPpOnly = false,
   initialCategory = "all",
+  initialQuery = "",
 }: {
   recipes: Recipe[];
   initialPpOnly?: boolean;
   initialCategory?: string;
+  initialQuery?: string;
 }) {
   const t = useT();
   const lang = useLang();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
   const [category, setCategory] = useState<string>(initialCategory);
   const [ppOnly, setPpOnly] = useState(initialPpOnly);
 
@@ -69,14 +71,18 @@ export default function RecipeExplorer({
       </div>
 
       <div className="mb-6 flex flex-wrap items-center gap-2">
-        <button className={chip(category === "all")} onClick={() => setCategory("all")}>
-          {t("recipes.filter.all")}
-        </button>
-        {cats.map((c) => (
-          <button key={c} className={chip(category === c)} onClick={() => setCategory(c)}>
-            {t(`cat.${c}`)}
-          </button>
-        ))}
+        {cats.length > 1 && (
+          <>
+            <button className={chip(category === "all")} onClick={() => setCategory("all")}>
+              {t("recipes.filter.all")}
+            </button>
+            {cats.map((c) => (
+              <button key={c} className={chip(category === c)} onClick={() => setCategory(c)}>
+                {t(`cat.${c}`)}
+              </button>
+            ))}
+          </>
+        )}
         <button
           className={`${chip(ppOnly)} ml-auto`}
           onClick={() => setPpOnly((v) => !v)}

@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import RecipeCard from "@/components/RecipeCard";
 import CategoryChips from "@/components/CategoryChips";
 import CollectionCard from "@/components/CollectionCard";
+import HeroSearch from "@/components/HeroSearch";
 import LifehacksStrip from "@/components/LifehacksStrip";
 import MealPlanBanner from "@/components/MealPlanBanner";
 import Newsletter from "@/components/Newsletter";
@@ -80,6 +81,8 @@ export default async function HomePage({
                 🌱 {t["home.hero.cta2"]}
               </Link>
             </div>
+
+            <HeroSearch />
 
             <div className="rise rise-3 mt-10 flex flex-wrap gap-8">
               <Stat value={`${recipes.length}`} label={t["home.stats.recipes"]} />
