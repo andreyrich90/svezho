@@ -86,6 +86,26 @@ export const COLLECTIONS: Collection[] = [
       "pasta-s-krevetkami",
     ],
   },
+  {
+    slug: "8-receptov-kuritsy",
+    emoji: "🍗",
+    title: { ru: "8 рецептов курицы", en: "8 chicken recipes", ua: "8 рецептів курки" },
+    description: {
+      ru: "Курица на любой вечер: от сливочно-чесночного филе и терияки до шницеля и домашнего супа с лапшой. Выбирайте любой рецепт.",
+      en: "Chicken for any evening: from creamy garlic breast and teriyaki to schnitzel and homemade noodle soup. Pick any recipe.",
+      ua: "Курка на будь-який вечір: від вершково-часникового філе й теріякі до шніцеля та домашнього супу з локшиною. Обирайте будь-який рецепт.",
+    },
+    recipeSlugs: [
+      "kurinoe-file-v-slivochno-chesnochnom-souse",
+      "kuritsa-teriyaki",
+      "kurinye-bedra-medovo-gorchichnye",
+      "kuritsa-v-karri-s-kokosovym-molokom",
+      "kurinye-shashlychki-v-duhovke",
+      "kuritsa-stir-fray-s-ovoschami",
+      "kurinyy-shnitsel-v-panirovke",
+      "kurinyy-sup-s-lapshoy",
+    ],
+  },
 ];
 
 export function findCollection(slug: string): Collection | undefined {
