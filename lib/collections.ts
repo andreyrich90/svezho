@@ -126,6 +126,26 @@ export const COLLECTIONS: Collection[] = [
       "shokoladnyy-brauni",
     ],
   },
+  {
+    slug: "8-idey-dlya-zavtraka",
+    emoji: "🍳",
+    title: { ru: "8 идей для завтрака", en: "8 breakfast ideas", ua: "8 ідей для сніданку" },
+    description: {
+      ru: "С чего начать утро: омлет и шакшука, ленивая овсянка и гранола, панкейки, френч-тост и смузи-боул. Быстрые и полезные варианты на выбор.",
+      en: "How to start the morning: omelette and shakshuka, overnight oats and granola, pancakes, French toast and a smoothie bowl. Quick and wholesome options to pick from.",
+      ua: "З чого почати ранок: омлет і шакшука, лінива вівсянка й гранола, панкейки, френч-тост і смузі-боул. Швидкі та корисні варіанти на вибір.",
+    },
+    recipeSlugs: [
+      "omlet-s-ovoschami-i-syrom",
+      "shakshuka",
+      "lenivaya-ovsyanka-v-banke",
+      "domashnyaya-granola",
+      "frantsuzskie-grenki",
+      "amerikanskie-pankeyki",
+      "risovaya-kasha-na-moloke",
+      "smuzi-boul",
+    ],
+  },
 ];
 
 export function findCollection(slug: string): Collection | undefined {
