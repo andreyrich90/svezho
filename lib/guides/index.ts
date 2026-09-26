@@ -30,12 +30,19 @@ import { guide as pirozhki } from "./testo-dlya-pirozhkov";
 import { guide as gril } from "./gril-i-mangal";
 import { guide as pasta } from "./sousy-k-paste";
 import { guide as hleb } from "./hleb-na-zakvaske";
+import { guide as bezYaic } from "./vypechka-bez-yaic-i-glyutena";
+import { guide as kashi } from "./kashi-na-zavtrak";
+import { guide as menyu } from "./menyu-na-nedelyu";
+import { guide as sloenoe } from "./sloenoe-i-shtrudelnoe-testo";
+import { guide as vok } from "./vok-i-aziatskie-sousy";
+import { guide as ovoshchi } from "./kak-gotovit-ovoshchi";
 
 export type { Guide, GuideSection, GuideFaq } from "./types";
 
 // "Секреты кухни" — long-read articles, newest first. Add a new article by
 // creating lib/guides/<slug>.ts and listing it here.
 export const GUIDES: Guide[] = [
+  vok, ovoshchi, kashi, menyu, sloenoe, bezYaic,
   pasta, gril, pirozhki, keksy, kofe, hleb,
   pizza, kartofel, shokolad, tushenie, nozhi, zagotovki,
   spasti, supy, pelmeni, ryba, zapravki, pesochnoe,
