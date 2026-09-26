@@ -4,10 +4,12 @@ import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import RecipeExplorer from "@/components/RecipeExplorer";
 import CategoryChips from "@/components/CategoryChips";
+import PopularLinks from "@/components/PopularLinks";
 import { getDict } from "@/lib/i18n";
-import { isLang, LOCALES, type Lang } from "@/lib/langs";
+import { isLang, pick, LOCALES, type Lang } from "@/lib/langs";
 import { href } from "@/lib/nav";
-import { alternates } from "@/lib/seo";
+import { alternates, ogLocale, OG_FALLBACK } from "@/lib/seo";
+import { categoryLanding, MIN_LANDING_RECIPES } from "@/lib/landings";
 import { breadcrumbJsonLd, itemListJsonLd, jsonLdScript } from "@/lib/jsonld";
 import { RECIPE_CATEGORIES, type RecipeCategory } from "@/lib/types";
 import { getRecipes } from "@/lib/content";
@@ -34,11 +36,17 @@ export async function generateMetadata({
   const lang: Lang = isLang(locale) ? locale : "ru";
   const t = getDict(lang);
   if (!isCategory(cat)) return { title: "404" };
-  const name = t[`cat.${cat}`];
+  const landing = categoryLanding(cat);
+  const h1 = landing ? pick(landing.h1, lang) : t[`cat.${cat}`];
+  const title = `${h1} ${t["seo.withPhoto"]}`;
+  const description = (landing ? pick(landing.intro, lang) : t["recipes.subtitle"]).slice(0, 158);
+  const count = (await getRecipes()).filter((r) => r.category === cat).length;
   return {
-    title: `${name} — ${t["recipes.title"]}`,
-    description: `${name}: ${t["recipes.subtitle"]}`,
+    title,
+    description,
     alternates: alternates(`/recipes/category/${cat}`, lang),
+    robots: count < MIN_LANDING_RECIPES ? { index: false, follow: true } : undefined,
+    openGraph: { title, description, locale: ogLocale(lang), images: [OG_FALLBACK] },
   };
 }
 
@@ -54,7 +62,8 @@ export default async function CategoryPage({
 
   const all = await getRecipes();
   const inCat = all.filter((r) => r.category === cat);
-  const name = t[`cat.${cat}`];
+  const landing = categoryLanding(cat);
+  const name = landing ? pick(landing.h1, lang) : t[`cat.${cat}`];
 
   const jsonLd = [
     breadcrumbJsonLd(lang, [
@@ -81,8 +90,12 @@ export default async function CategoryPage({
       </nav>
 
       <header className="mb-6 mt-4">
-        <h1 className="font-display text-4xl font-semibold text-basil">{name}</h1>
-        <p className="mt-2 text-muted">{t["recipes.subtitle"]}</p>
+        <h1 className="font-display text-4xl font-semibold text-basil sm:text-5xl">
+          {landing?.emoji} {name}
+        </h1>
+        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-ink/80">
+          {landing ? pick(landing.intro, lang) : t["recipes.subtitle"]}
+        </p>
       </header>
 
       <div className="mb-8">
@@ -91,6 +104,8 @@ export default async function CategoryPage({
 
       {/* Reuse the explorer, pre-filtered to this category so search + PP toggle still work. */}
       <RecipeExplorer recipes={inCat} />
+
+      <PopularLinks lang={lang} />
     </div>
   );
 }

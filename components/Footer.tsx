@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLang, useT } from "./DictProvider";
 import { href } from "@/lib/nav";
 
-export default function Footer() {
+export default function Footer({ extra }: { extra?: React.ReactNode }) {
   const t = useT();
   const lang = useLang();
   const year = new Date().getFullYear();
@@ -67,6 +67,8 @@ export default function Footer() {
             </a>
           </FootCol>
         </div>
+
+        {extra}
 
         <div className="mt-12 flex flex-col gap-2 border-t border-cream/15 pt-6 text-xs text-cream/45 sm:flex-row sm:justify-between">
           <span>© {year} {t("brand")}. {t("footer.rights")}</span>

@@ -13,6 +13,19 @@ export const SITE_URL = (
     : "https://svezho.vercel.app")
 ).replace(/\/+$/, "");
 
+// Branded 1200x630 share card, used when a page has no real photo of its own.
+export const OG_FALLBACK = `${SITE_URL}/og.png`;
+
+/** Absolute URL for an image path; site-relative paths get the origin. */
+export function absUrl(src: string): string {
+  return /^https?:\/\//.test(src) ? src : `${SITE_URL}${src.startsWith("/") ? "" : "/"}${src}`;
+}
+
+/** True for an uploaded photo (not one of the /img/recipes/*.svg placeholders). */
+export function isRealPhoto(src?: string | null): src is string {
+  return !!src && /^https?:\/\//.test(src) && !/\.svg(\?|$)/i.test(src);
+}
+
 // Our URL locale segment ("ua") vs. the BCP-47 code search engines expect ("uk").
 const HREFLANG: Record<Lang, string> = { ru: "ru", en: "en", ua: "uk" };
 const OG_LOCALE: Record<Lang, string> = { ru: "ru_RU", en: "en_US", ua: "uk_UA" };

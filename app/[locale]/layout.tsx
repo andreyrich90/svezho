@@ -3,11 +3,12 @@ import { Manrope, Playfair_Display } from "next/font/google";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PopularLinks from "@/components/PopularLinks";
 import CookieBanner from "@/components/CookieBanner";
 import { DictProvider } from "@/components/DictProvider";
 import { getDict } from "@/lib/i18n";
 import { isLang, LOCALES, type Lang } from "@/lib/langs";
-import { SITE_URL, alternates, ogLocale } from "@/lib/seo";
+import { SITE_URL, alternates, ogLocale, OG_FALLBACK } from "@/lib/seo";
 import { siteJsonLd, jsonLdScript } from "@/lib/jsonld";
 
 const ADSENSE_ID = process.env.NEXT_PUBLIC_ADSENSE_ID;
@@ -53,11 +54,13 @@ export async function generateMetadata({
       siteName: dict["brand"],
       locale: ogLocale(lang),
       url: `${SITE_URL}/${lang}`,
+      images: [{ url: OG_FALLBACK, width: 1200, height: 630, alt: dict["brand"] }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${dict["brand"]} — ${dict["brand.tagline"]}`,
       description: dict["brand.tagline"],
+      images: [OG_FALLBACK],
     },
   };
 }
@@ -109,7 +112,7 @@ export default async function LocaleLayout({
           <div id="app-root" className="flex min-h-screen flex-col">
             <Header />
             <main className="flex-1">{children}</main>
-            <Footer />
+            <Footer extra={<PopularLinks lang={lang} variant="footer" />} />
           </div>
           <CookieBanner />
         </DictProvider>

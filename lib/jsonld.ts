@@ -1,6 +1,6 @@
 import { pick, type Lang } from "./langs";
 import type { Recipe } from "./types";
-import { SITE_URL, localePath } from "./seo";
+import { SITE_URL, localePath, absUrl, isRealPhoto } from "./seo";
 
 // schema.org structured data. Google reads these to build recipe rich results
 // (the card with photo, time and calories) and breadcrumbs in search.
@@ -14,29 +14,39 @@ function isoDuration(minutes: number): string | undefined {
 }
 
 // schema.org/Recipe for a recipe detail page.
-export function recipeJsonLd(recipe: Recipe, lang: Lang) {
+export function recipeJsonLd(recipe: Recipe, lang: Lang, categoryName?: string) {
   const url = `${SITE_URL}${localePath(lang, `/recipes/${recipe.slug}`)}`;
   const steps = pick(recipe.steps, lang);
+  const gallery = (recipe.gallery ?? []).filter(isRealPhoto);
+  // Google Images + recipe rich results read these. Cover first, then the
+  // step photos; all absolute URLs.
+  const images = [recipe.image, ...gallery].filter(Boolean).map(absUrl);
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Recipe",
     name: pick(recipe.title, lang),
     description: pick(recipe.description, lang),
-    image: recipe.image ? [recipe.image] : undefined,
+    image: images.length ? images : undefined,
     inLanguage: HREFLANG[lang],
     author: { "@type": "Organization", name: BRAND, url: SITE_URL },
     publisher: { "@type": "Organization", name: BRAND, url: SITE_URL },
     datePublished: recipe.createdAt,
-    recipeCategory: pick(recipe.tags, lang)[0],
+    recipeCategory: categoryName || pick(recipe.tags, lang)[0],
     recipeYield: recipe.servings ? `${recipe.servings}` : undefined,
     totalTime: isoDuration(recipe.minutes),
     keywords: pick(recipe.tags, lang).join(", ") || undefined,
     recipeIngredient: pick(recipe.ingredients, lang),
-    recipeInstructions: steps.map((text, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      text,
-    })),
+    recipeInstructions: steps.map((text, i) => {
+      const photo = recipe.gallery?.[i];
+      return {
+        "@type": "HowToStep",
+        position: i + 1,
+        name: `${i + 1}`,
+        text,
+        url: `${url}#step-${i + 1}`,
+        ...(isRealPhoto(photo) ? { image: photo } : {}),
+      };
+    }),
     nutrition: recipe.calories
       ? { "@type": "NutritionInformation", calories: `${recipe.calories} kcal` }
       : undefined,

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RecipeExplorer from "@/components/RecipeExplorer";
 import CategoryChips from "@/components/CategoryChips";
+import PopularLinks from "@/components/PopularLinks";
 import { getDict } from "@/lib/i18n";
 import { isLang, type Lang } from "@/lib/langs";
 import { alternates } from "@/lib/seo";
@@ -48,6 +49,8 @@ export default async function RecipesPage({
         <CategoryChips />
       </div>
       <RecipeExplorer recipes={recipes} initialCategory={cat || "all"} initialQuery={q || ""} />
+
+      <PopularLinks lang={lang} />
     </div>
   );
 }

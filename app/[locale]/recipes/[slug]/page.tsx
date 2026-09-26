@@ -4,10 +4,13 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ChevronRight, Clock, Flame, Gauge, Users } from "lucide-react";
 import AdSlot from "@/components/AdSlot";
 import RecipeCard from "@/components/RecipeCard";
+import PopularLinks from "@/components/PopularLinks";
 import { getDict } from "@/lib/i18n";
 import { isLang, pick, LOCALES, type Lang } from "@/lib/langs";
 import { href } from "@/lib/nav";
-import { alternates, ogLocale } from "@/lib/seo";
+import { alternates, ogLocale, OG_FALLBACK, isRealPhoto } from "@/lib/seo";
+import { categoryLanding, ingredientLandingsFor } from "@/lib/landings";
+import { COLLECTIONS } from "@/lib/collections";
 import { recipeJsonLd, breadcrumbJsonLd, jsonLdScript } from "@/lib/jsonld";
 import { getRecipe, getRecipes } from "@/lib/content";
 
@@ -36,8 +39,12 @@ export async function generateMetadata({
   const lang: Lang = isLang(locale) ? locale : "ru";
   const recipe = await getRecipe(slug);
   if (!recipe) return { title: "404" };
-  const title = pick(recipe.title, lang);
+  const t = getDict(lang);
+  const name = pick(recipe.title, lang);
+  // "<dish> — рецепт с фото пошагово": the phrase people actually search.
+  const title = `${name} ${t["seo.recipeSuffix"]}`;
   const description = pick(recipe.description, lang);
+  const ogImage = isRealPhoto(recipe.image) ? recipe.image : OG_FALLBACK;
   return {
     title,
     description,
@@ -46,14 +53,14 @@ export async function generateMetadata({
       type: "article",
       title,
       description,
-      images: [recipe.image],
+      images: [{ url: ogImage, alt: name }],
       locale: ogLocale(lang),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [recipe.image],
+      images: [ogImage],
     },
   };
 }
@@ -83,8 +90,13 @@ export default async function RecipePage({
     ...others.filter((r) => r.category !== recipe.category),
   ].slice(0, 3);
 
+  const catLanding = categoryLanding(recipe.category);
+  const ingredientLinks = ingredientLandingsFor(recipe);
+  const inCollections = COLLECTIONS.filter((c) => c.recipeSlugs.includes(recipe.slug));
+  const title = pick(recipe.title, lang);
+
   const jsonLd = [
-    recipeJsonLd(recipe, lang),
+    recipeJsonLd(recipe, lang, t[`cat.${recipe.category}`]),
     breadcrumbJsonLd(lang, [
       { name: t["nav.home"], path: "/" },
       { name: t["recipes.title"], path: "/recipes" },
@@ -116,9 +128,12 @@ export default async function RecipePage({
       </Link>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        <span className="rounded-full bg-basil/10 px-3 py-1 text-sm font-semibold text-basilInk">
+        <Link
+          href={href(lang, `/recipes/category/${recipe.category}`)}
+          className="rounded-full bg-basil/10 px-3 py-1 text-sm font-semibold text-basilInk transition hover:bg-basil hover:text-cream"
+        >
           {t[`cat.${recipe.category}`]}
-        </span>
+        </Link>
         {recipe.isPp && (
           <span className="rounded-full bg-honey px-3 py-1 text-sm font-bold text-ink">
             🥗 {t["recipe.pp.badge"]}
@@ -135,7 +150,9 @@ export default async function RecipePage({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={recipe.image}
-          alt={pick(recipe.title, lang)}
+          alt={title}
+          fetchPriority="high"
+          decoding="async"
           className="mx-auto max-h-[600px] w-full object-contain"
         />
       </div>
@@ -178,7 +195,7 @@ export default async function RecipePage({
             {pick(recipe.steps, lang).map((step, i) => {
               const photo = recipe.gallery?.[i];
               return (
-                <li key={i} className="flex gap-4">
+                <li key={i} id={`step-${i + 1}`} className="flex gap-4 scroll-mt-24">
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-basil font-display font-bold text-white">
                     {i + 1}
                   </span>
@@ -188,7 +205,7 @@ export default async function RecipePage({
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img
                         src={photo}
-                        alt=""
+                        alt={`${title} — ${t["recipe.stepAlt"]} ${i + 1}`}
                         loading="lazy"
                         className="mt-3 w-full max-w-md rounded-xl border border-line object-cover"
                       />
@@ -217,6 +234,47 @@ export default async function RecipePage({
         </div>
       )}
 
+      {(ingredientLinks.length > 0 || inCollections.length > 0 || catLanding) && (
+        <div className="mt-8 space-y-4">
+          {(ingredientLinks.length > 0 || catLanding) && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm font-semibold text-muted">{t["recipe.moreWith"]}:</span>
+              {catLanding && (
+                <Link
+                  href={href(lang, `/recipes/category/${recipe.category}`)}
+                  className="rounded-full border border-line bg-surface px-3 py-1 text-sm font-semibold text-ink/80 transition hover:border-clay hover:text-clay"
+                >
+                  {pick(catLanding.h1, lang)}
+                </Link>
+              )}
+              {ingredientLinks.map((l) => (
+                <Link
+                  key={l.slug}
+                  href={href(lang, `/recipes/ingredient/${l.slug}`)}
+                  className="rounded-full border border-line bg-surface px-3 py-1 text-sm font-semibold text-ink/80 transition hover:border-clay hover:text-clay"
+                >
+                  {l.emoji} {pick(l.h1, lang)}
+                </Link>
+              ))}
+            </div>
+          )}
+          {inCollections.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm font-semibold text-muted">{t["recipe.inCollections"]}:</span>
+              {inCollections.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={href(lang, `/collections/${c.slug}`)}
+                  className="rounded-full bg-honey/25 px-3 py-1 text-sm font-semibold text-ink transition hover:bg-honey"
+                >
+                  {c.emoji} {pick(c.title, lang)}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Related recipes — internal linking */}
       {related.length > 0 && (
         <section className="mt-14 border-t border-line pt-8">
@@ -228,6 +286,8 @@ export default async function RecipePage({
           </div>
         </section>
       )}
+
+      <PopularLinks lang={lang} />
     </article>
   );
 }
