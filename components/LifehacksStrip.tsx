@@ -1,17 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Shuffle } from "lucide-react";
 import { useLang, useT } from "./DictProvider";
 import { pick } from "@/lib/langs";
 import { href } from "@/lib/nav";
 import type { Lifehack } from "@/lib/types";
+import { useRotation } from "@/lib/useRotation";
+
+const idOf = (l: Lifehack) => l.id;
 
 // Forest-green band with a horizontally scrolling rail of numbered lifehack
-// cards (from the design concept).
-export default function LifehacksStrip({ items }: { items: Lifehack[] }) {
+// cards (from the design concept). Shows a fresh random set on every visit.
+export default function LifehacksStrip({ items, count = 6 }: { items: Lifehack[]; count?: number }) {
   const t = useT();
   const lang = useLang();
+  const { picked, shuffle } = useRotation(items, count, "recepto:seen-lifehacks", idOf);
 
   return (
     <section className="relative my-6 overflow-hidden bg-basil py-20 text-cream">
@@ -31,16 +35,27 @@ export default function LifehacksStrip({ items }: { items: Lifehack[] }) {
             </h2>
             <p className="mt-2 text-cream/65">{t("home.lifehacks.subtitle")}</p>
           </div>
-          <Link
-            href={href(lang, "/lifehacks")}
-            className="inline-flex items-center gap-1.5 font-bold text-honey hover:underline"
-          >
-            {t("home.lifehacks.cta")} <ArrowRight size={16} />
-          </Link>
+          <div className="flex flex-wrap items-center gap-5">
+            {items.length > count && (
+              <button
+                type="button"
+                onClick={shuffle}
+                className="inline-flex items-center gap-1.5 font-bold text-cream/80 transition hover:text-honey"
+              >
+                <Shuffle size={16} /> {t("home.shuffle")}
+              </button>
+            )}
+            <Link
+              href={href(lang, "/lifehacks")}
+              className="inline-flex items-center gap-1.5 font-bold text-honey hover:underline"
+            >
+              {t("home.lifehacks.cta")} <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
 
         <div className="no-scrollbar flex gap-5 overflow-x-auto pb-2">
-          {items.map((item, i) => (
+          {picked.map((item, i) => (
             <Link
               key={item.id}
               href={href(lang, `/lifehacks/${item.slug}`)}

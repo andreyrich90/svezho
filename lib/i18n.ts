@@ -57,6 +57,7 @@ const ru: Dict = {
 
   "home.lifehacks.title": "Лайфхаки недели",
   "home.lifehacks.subtitle": "Маленькие хитрости, которые экономят время и продукты",
+  "home.shuffle": "Показать другие",
   "home.lifehacks.cta": "Все лайфхаки",
 
   "home.plan.eyebrow": "Меню на неделю",
@@ -220,6 +221,7 @@ const en: Dict = {
 
   "home.lifehacks.title": "Lifehacks of the week",
   "home.lifehacks.subtitle": "Small tricks that save time and groceries",
+  "home.shuffle": "Show others",
   "home.lifehacks.cta": "All lifehacks",
 
   "home.plan.eyebrow": "Weekly menu",
@@ -383,6 +385,7 @@ const ua: Dict = {
 
   "home.lifehacks.title": "Лайфхаки тижня",
   "home.lifehacks.subtitle": "Маленькі хитрощі, що заощаджують час і продукти",
+  "home.shuffle": "Показати інші",
   "home.lifehacks.cta": "Усі лайфхаки",
 
   "home.plan.eyebrow": "Меню на тиждень",

@@ -4,12 +4,12 @@ import RecipeCard from "@/components/RecipeCard";
 import CategoryChips from "@/components/CategoryChips";
 import CollectionCard from "@/components/CollectionCard";
 import HeroSearch from "@/components/HeroSearch";
-import GuideCard from "@/components/GuideCard";
-import { GUIDES } from "@/lib/guides";
+import RotatingGuides from "@/components/RotatingGuides";
+import { GUIDES, readingMinutes } from "@/lib/guides";
 import LifehacksStrip from "@/components/LifehacksStrip";
 import MealPlanBanner from "@/components/MealPlanBanner";
 import { getDict } from "@/lib/i18n";
-import { isLang, type Lang } from "@/lib/langs";
+import { isLang, pick, type Lang } from "@/lib/langs";
 import { href } from "@/lib/nav";
 import { COLLECTIONS } from "@/lib/collections";
 import { getCollectionCovers, getLifehacks, getPpRecipes, getRecipes } from "@/lib/content";
@@ -174,15 +174,19 @@ export default async function HomePage({
           ctaLabel={t["guides.back"]}
           ctaHref={href(lang, "/guides")}
         />
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {GUIDES.slice(0, 3).map((g) => (
-            <GuideCard key={g.slug} guide={g} lang={lang} />
-          ))}
-        </div>
+        <RotatingGuides
+          guides={GUIDES.map((g) => ({
+            slug: g.slug,
+            emoji: g.emoji,
+            title: pick(g.title, lang),
+            summary: pick(g.summary, lang),
+            minutes: readingMinutes(g, lang),
+          }))}
+        />
       </section>
 
       {/* Lifehacks band */}
-      <LifehacksStrip items={lifehacks.slice(0, 6)} />
+      <LifehacksStrip items={lifehacks} />
 
       {/* Meal plan */}
       <MealPlanBanner />
