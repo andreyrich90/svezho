@@ -12,12 +12,19 @@ import { guide as specii } from "./specii-i-sol";
 import { guide as bliny } from "./bliny-i-syrniki";
 import { guide as testo } from "./drozhzhevoe-testo";
 import { guide as hranenie } from "./hranenie-i-zamorozka";
+import { guide as pelmeni } from "./pelmeni-i-vareniki";
+import { guide as supy } from "./supy-i-bulony";
+import { guide as ryba } from "./ryba-i-moreprodukty";
+import { guide as zapravki } from "./zapravki-i-marinady";
+import { guide as spasti } from "./kak-spasti-blyudo";
+import { guide as pesochnoe } from "./pesochnoe-i-zavarnoe-testo";
 
 export type { Guide, GuideSection, GuideFaq } from "./types";
 
 // "Секреты кухни" — long-read articles, newest first. Add a new article by
 // creating lib/guides/<slug>.ts and listing it here.
 export const GUIDES: Guide[] = [
+  spasti, supy, pelmeni, ryba, zapravki, pesochnoe,
   bliny, yaica, testo, specii, ris, hranenie,
   klyar, kotlety, kremy, biskvit, myaso, sousy,
 ];
