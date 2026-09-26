@@ -24,12 +24,19 @@ import { guide as kartofel } from "./sekrety-kartofelya";
 import { guide as tushenie } from "./tushenie-i-zapekanie";
 import { guide as nozhi } from "./nozhi-i-narezka";
 import { guide as zagotovki } from "./domashnie-zagotovki";
+import { guide as kofe } from "./kofe-i-chay";
+import { guide as keksy } from "./keksy-i-maffiny";
+import { guide as pirozhki } from "./testo-dlya-pirozhkov";
+import { guide as gril } from "./gril-i-mangal";
+import { guide as pasta } from "./sousy-k-paste";
+import { guide as hleb } from "./hleb-na-zakvaske";
 
 export type { Guide, GuideSection, GuideFaq } from "./types";
 
 // "Секреты кухни" — long-read articles, newest first. Add a new article by
 // creating lib/guides/<slug>.ts and listing it here.
 export const GUIDES: Guide[] = [
+  pasta, gril, pirozhki, keksy, kofe, hleb,
   pizza, kartofel, shokolad, tushenie, nozhi, zagotovki,
   spasti, supy, pelmeni, ryba, zapravki, pesochnoe,
   bliny, yaica, testo, specii, ris, hranenie,
