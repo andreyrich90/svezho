@@ -125,3 +125,42 @@ export function jsonLdScript(data: unknown): string {
   // Escape "<" to avoid breaking out of the <script> tag.
   return JSON.stringify(data).replace(/</g, "\\u003c");
 }
+
+// schema.org/Article for a "Kitchen secrets" long-read.
+export function articleJsonLd(opts: {
+  lang: Lang;
+  path: string;
+  headline: string;
+  description: string;
+  updated: string;
+  image?: string;
+}) {
+  const url = `${SITE_URL}${localePath(opts.lang, opts.path)}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: opts.headline,
+    description: opts.description,
+    inLanguage: HREFLANG[opts.lang],
+    datePublished: opts.updated,
+    dateModified: opts.updated,
+    author: { "@type": "Organization", name: BRAND, url: SITE_URL },
+    publisher: { "@type": "Organization", name: BRAND, url: SITE_URL },
+    mainEntityOfPage: url,
+    url,
+    ...(opts.image ? { image: [absUrl(opts.image)] } : {}),
+  };
+}
+
+// schema.org/FAQPage for the Q&A block under an article.
+export function faqJsonLd(items: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+}

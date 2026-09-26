@@ -4,6 +4,8 @@ import RecipeCard from "@/components/RecipeCard";
 import CategoryChips from "@/components/CategoryChips";
 import CollectionCard from "@/components/CollectionCard";
 import HeroSearch from "@/components/HeroSearch";
+import GuideCard from "@/components/GuideCard";
+import { GUIDES } from "@/lib/guides";
 import LifehacksStrip from "@/components/LifehacksStrip";
 import MealPlanBanner from "@/components/MealPlanBanner";
 import { getDict } from "@/lib/i18n";
@@ -163,6 +165,21 @@ export default async function HomePage({
           </div>
         </section>
       )}
+
+      {/* Kitchen secrets (long reads) */}
+      <section className="mx-auto max-w-content px-5 pb-4 pt-12 sm:px-8">
+        <SectionHead
+          title={t["guides.title"]}
+          subtitle={t["guides.subtitle"]}
+          ctaLabel={t["guides.back"]}
+          ctaHref={href(lang, "/guides")}
+        />
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {GUIDES.slice(0, 3).map((g) => (
+            <GuideCard key={g.slug} guide={g} lang={lang} />
+          ))}
+        </div>
+      </section>
 
       {/* Lifehacks band */}
       <LifehacksStrip items={lifehacks.slice(0, 6)} />

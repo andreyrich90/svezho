@@ -14,6 +14,7 @@ export default function Footer({ extra }: { extra?: React.ReactNode }) {
     { path: "/pp", label: t("nav.pp") },
     { path: "/collections", label: t("nav.collections") },
     { path: "/lifehacks", label: t("nav.lifehacks") },
+    { path: "/guides", label: t("nav.guides") },
     { path: "/about", label: t("nav.about") },
   ];
 

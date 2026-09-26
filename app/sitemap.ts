@@ -5,6 +5,7 @@ import { INGREDIENT_LANDINGS, recipesWithIngredient, MIN_LANDING_RECIPES } from 
 import { COLLECTIONS } from "@/lib/collections";
 import { RECIPE_CATEGORIES } from "@/lib/types";
 import { getLifehacks, getRecipes } from "@/lib/content";
+import { GUIDES } from "@/lib/guides";
 
 // Re-generate at most every 30 min so new recipes enter the sitemap without a
 // redeploy.
@@ -42,6 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ["/pp", 0.8, "weekly"],
     ["/collections", 0.8, "weekly"],
     ["/lifehacks", 0.7, "weekly"],
+    ["/guides", 0.8, "weekly"],
     ["/about", 0.4, "monthly"],
     ["/contacts", 0.3, "yearly"],
     ["/privacy", 0.2, "yearly"],
@@ -68,6 +70,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })
     );
   }
+  for (const g of GUIDES)
+    out.push(...entries(`/guides/${g.slug}`, 0.8, "monthly", { lastModified: new Date(g.updated) }));
   for (const l of lifehacks) out.push(...entries(`/lifehacks/${l.slug}`, 0.6, "monthly"));
 
   return out;

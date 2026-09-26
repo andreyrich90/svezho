@@ -20,7 +20,7 @@ export default function Header() {
     { path: "/pp", label: t("nav.pp") },
     { path: "/collections", label: t("nav.collections") },
     { path: "/lifehacks", label: t("nav.lifehacks") },
-    { path: "/about", label: t("nav.about") },
+    { path: "/guides", label: t("nav.guides") },
   ];
 
   const isActive = (path: string) => pathname.startsWith(href(lang, path));
