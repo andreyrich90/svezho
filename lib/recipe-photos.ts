@@ -40,6 +40,12 @@ export const RECIPE_PHOTOS: Record<string, { cover?: boolean; steps?: number }> 
   "hrustyaschie-krevetki": { cover: true },
   "kokosovoe-karri-s-krevetkami": { cover: true },
   "krevetki-teriyaki": { cover: true },
+  "limonno-perechnye-krevetki": { cover: true },
+  "pasta-s-krevetkami": { cover: true },
+  "kurinoe-file-v-slivochno-chesnochnom-souse": { cover: true },
+  "kuritsa-teriyaki": { cover: true },
+  "kurinye-bedra-medovo-gorchichnye": { cover: true },
+  "kuritsa-v-karri-s-kokosovym-molokom": { cover: true },
 };
 
 const isPlaceholder = (src?: string | null) => !src || !src.trim() || /\.svg(\?|$)/i.test(src);
