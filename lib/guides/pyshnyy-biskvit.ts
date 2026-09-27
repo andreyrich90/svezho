@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "pyshnyy-biskvit",
   emoji: "🎂",
+  image: "/img/guides/pyshnyy-biskvit.webp",
   updated: "2026-09-26",
   title: {
     ru: "Пышный бисквит, который не опадает: пропорции, взбивание до «ленты» и правда про соду",

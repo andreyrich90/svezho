@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "hrustyashchiy-klyar",
   emoji: "🍤",
+  image: "/img/guides/hrustyashchiy-klyar.webp",
   updated: "2026-09-26",
   title: {
     ru: "Идеальный хрустящий кляр: крахмал, ледяная газировка и ещё 5 секретов",

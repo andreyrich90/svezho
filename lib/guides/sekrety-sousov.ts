@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "sekrety-sousov",
   emoji: "🥣",
+  image: "/img/guides/sekrety-sousov.webp",
   updated: "2026-09-26",
   title: {
     ru: "Секреты соусов и заправок: пропорция 3:1, вода от пасты и как спасти свернувшийся соус",

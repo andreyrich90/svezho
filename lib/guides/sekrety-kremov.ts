@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "sekrety-kremov",
   emoji: "🍰",
+  image: "/img/guides/sekrety-kremov.webp",
   updated: "2026-09-26",
   title: {
     ru: "Секреты крема: почему он сворачивается и течёт и как сделать стабильный крем для торта",

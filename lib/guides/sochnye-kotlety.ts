@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "sochnye-kotlety",
   emoji: "🥩",
+  image: "/img/guides/sochnye-kotlety.webp",
   updated: "2026-09-26",
   title: {
     ru: "Как сделать котлеты сочными: лёд в фарше, правильный хлеб и «отбивание»",

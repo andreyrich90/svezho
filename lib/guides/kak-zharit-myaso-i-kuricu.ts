@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "kak-zharit-myaso-i-kuricu",
   emoji: "🍗",
+  image: "/img/guides/kak-zharit-myaso-i-kuricu.webp",
   updated: "2026-09-26",
   title: {
     ru: "Как жарить мясо и курицу: сухой посол, румяная корочка и точные температуры",
