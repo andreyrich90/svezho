@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "pelmeni-i-vareniki",
   emoji: "🥟",
+  image: "/img/guides/pelmeni-i-vareniki.webp",
   updated: "2026-09-26",
   title: {
     ru: "Пельмени и вареники: тесто, которое не рвётся, и сочная начинка",

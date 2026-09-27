@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "kak-spasti-blyudo",
   emoji: "🛟",
+  image: "/img/guides/kak-spasti-blyudo.webp",
   updated: "2026-09-26",
   title: {
     ru: "Кухонная скорая помощь: как спасти пересоленное, подгоревшее и свернувшееся",

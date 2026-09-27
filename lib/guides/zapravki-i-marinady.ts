@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "zapravki-i-marinady",
   emoji: "🥗",
+  image: "/img/guides/zapravki-i-marinady.webp",
   updated: "2026-09-26",
   title: {
     ru: "Заправки и маринады: формулы, по которым можно придумать свою",

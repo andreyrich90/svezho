@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "supy-i-bulony",
   emoji: "🍲",
+  image: "/img/guides/supy-i-bulony.webp",
   updated: "2026-09-26",
   title: {
     ru: "Прозрачный бульон и вкусный суп: правила, которые знают повара",

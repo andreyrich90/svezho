@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "pesochnoe-i-zavarnoe-testo",
   emoji: "🥧",
+  image: "/img/guides/pesochnoe-i-zavarnoe-testo.webp",
   updated: "2026-09-26",
   title: {
     ru: "Песочное и заварное тесто: рассыпчатые тарты и эклеры, которые не опадают",

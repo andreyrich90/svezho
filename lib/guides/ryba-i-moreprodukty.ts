@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "ryba-i-moreprodukty",
   emoji: "🐟",
+  image: "/img/guides/ryba-i-moreprodukty.webp",
   updated: "2026-09-26",
   title: {
     ru: "Рыба и морепродукты: хрустящая кожа, сочное филе и креветки без «резины»",
