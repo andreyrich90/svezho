@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "travy-i-zelen",
   emoji: "🌿",
+  image: "/img/guides/travy-i-zelen.webp",
   updated: "2026-09-27",
   title: {
     ru: "Травы и зелень: когда добавлять, как хранить и с чем сочетать",

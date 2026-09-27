@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "plov",
   emoji: "🍛",
+  image: "/img/guides/plov.webp",
   updated: "2026-09-27",
   title: {
     ru: "Плов рассыпчатый: зирвак, правильный рис и казан — пошагово",

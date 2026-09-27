@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "kak-sostavit-salat",
   emoji: "🥬",
+  image: "/img/guides/kak-sostavit-salat.webp",
   updated: "2026-09-27",
   title: {
     ru: "Как составить салат без рецепта: формула из семи элементов",

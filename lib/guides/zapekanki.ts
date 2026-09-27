@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "zapekanki",
   emoji: "🥘",
+  image: "/img/guides/zapekanki.webp",
   updated: "2026-09-27",
   title: {
     ru: "Запеканки, лазанья и гратен: как не получить сырую середину и лужу на дне",

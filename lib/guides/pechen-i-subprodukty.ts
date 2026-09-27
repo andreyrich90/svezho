@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "pechen-i-subprodukty",
   emoji: "🍳",
+  image: "/img/guides/pechen-i-subprodukty.webp",
   updated: "2026-09-27",
   title: {
     ru: "Печень и субпродукты: мягкая печень без горечи, паштет, язык и сердце",

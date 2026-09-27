@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock } from "lucide-react";
 import { getDict } from "@/lib/i18n";
@@ -11,8 +12,20 @@ export default function GuideCard({ guide, lang }: { guide: Guide; lang: Lang })
   return (
     <Link
       href={href(lang, `/guides/${guide.slug}`)}
-      className="group flex flex-col rounded-xl2 border border-line bg-card p-6 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-soft"
+      className="group flex flex-col overflow-hidden rounded-xl2 border border-line bg-card shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-soft"
     >
+      {guide.image && (
+        <div className="relative aspect-[16/9] overflow-hidden bg-cream2">
+          <Image
+            src={guide.image}
+            alt={pick(guide.title, lang)}
+            fill
+            sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition duration-500 group-hover:scale-105"
+          />
+        </div>
+      )}
+      <div className="flex flex-1 flex-col p-6">
       <div className="flex items-center justify-between">
         <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cream2 text-2xl">
           {guide.emoji}
@@ -28,6 +41,7 @@ export default function GuideCard({ guide, lang }: { guide: Guide; lang: Lang })
       <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-clay">
         {t["guides.read"]} <ArrowRight size={15} className="transition group-hover:translate-x-1" />
       </span>
+      </div>
     </Link>
   );
 }

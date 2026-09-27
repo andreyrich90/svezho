@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "pp-gotovka",
   emoji: "🥗",
+  image: "/img/guides/pp-gotovka.webp",
   updated: "2026-09-27",
   title: {
     ru: "ПП-готовка без скуки: как готовить легче и оставлять вкус",

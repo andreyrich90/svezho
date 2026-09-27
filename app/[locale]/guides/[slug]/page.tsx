@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Clock } from "lucide-react";
@@ -45,7 +46,7 @@ export async function generateMetadata({
       description,
       locale: ogLocale(lang),
       modifiedTime: g.updated,
-      images: [OG_FALLBACK],
+      images: [g.image ?? OG_FALLBACK],
     },
   };
 }
@@ -85,7 +86,7 @@ export default async function GuidePage({
       headline: title,
       description: pick(guide.summary, lang),
       updated: guide.updated,
-      image: OG_FALLBACK,
+      image: guide.image ?? OG_FALLBACK,
     }),
     breadcrumbJsonLd(lang, [
       { name: t["nav.home"], path: "/" },
@@ -106,7 +107,7 @@ export default async function GuidePage({
       </nav>
 
       <header className="mt-5">
-        <div className="text-5xl">{guide.emoji}</div>
+        {!guide.image && <div className="text-5xl">{guide.emoji}</div>}
         <h1 className="mt-3 font-display text-3xl font-bold leading-tight text-ink sm:text-[42px]">{title}</h1>
         <p className="mt-4 text-lg leading-relaxed text-ink/75">{pick(guide.summary, lang)}</p>
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-semibold text-muted">
@@ -118,6 +119,19 @@ export default async function GuidePage({
           </span>
         </div>
       </header>
+
+      {guide.image && (
+        <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-xl2 bg-cream2 shadow-card">
+          <Image
+            src={guide.image}
+            alt={title}
+            fill
+            priority
+            sizes="(min-width: 768px) 720px, 100vw"
+            className="object-cover"
+          />
+        </div>
+      )}
 
       {/* Table of contents */}
       <nav aria-label={t["guides.toc"]} className="mt-8 rounded-xl2 border border-line bg-cream2/60 p-5">

@@ -178,6 +178,7 @@ export default async function HomePage({
           guides={GUIDES.map((g) => ({
             slug: g.slug,
             emoji: g.emoji,
+            image: g.image,
             title: pick(g.title, lang),
             summary: pick(g.summary, lang),
             minutes: readingMinutes(g, lang),

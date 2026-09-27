@@ -22,6 +22,8 @@ export interface GuideFaq {
 export interface Guide {
   slug: string;
   emoji: string;
+  /** Optional cover photo under /public (e.g. "/img/guides/<slug>.webp"), 16:9-ish. */
+  image?: string;
   /** ISO date of the last meaningful edit (Article dateModified). */
   updated: string;
   title: Localized;
