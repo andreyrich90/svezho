@@ -64,6 +64,16 @@ export const RECIPE_PHOTOS: Record<string, { cover?: boolean; steps?: number }> 
   "domashnyaya-granola": { cover: true },
   "frantsuzskie-grenki": { cover: true },
   "amerikanskie-pankeyki": { cover: true },
+  "risovaya-kasha-na-moloke": { cover: true },
+  "smuzi-boul": { cover: true },
+  "salat-cezar-s-kuricey": { cover: true },
+  "salat-olivye": { cover: true },
+  "salat-mimoza": { cover: true },
+  "vinegret": { cover: true },
+  "teplyy-salat-s-kuricey": { cover: true },
+  "salat-s-tuncom-i-fasolyu": { cover: true },
+  "salat-s-krevetkami-i-avokado": { cover: true },
+  "salat-kapreze": { cover: true },
 };
 
 const isPlaceholder = (src?: string | null) => !src || !src.trim() || /\.svg(\?|$)/i.test(src);
