@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "testo-dlya-pirozhkov",
   emoji: "🥐",
+  image: "/img/guides/testo-dlya-pirozhkov.webp",
   updated: "2026-09-26",
   title: {
     ru: "Пирожки как у бабушки: пышное дрожжевое тесто и начинки, которые не вытекают",

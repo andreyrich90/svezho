@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "gril-i-mangal",
   emoji: "🔥",
+  image: "/img/guides/gril-i-mangal.webp",
   updated: "2026-09-26",
   title: {
     ru: "Гриль и мангал: сочный шашлык, правильные угли и овощи с полосками",

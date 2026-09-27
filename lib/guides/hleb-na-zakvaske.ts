@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "hleb-na-zakvaske",
   emoji: "🥖",
+  image: "/img/guides/hleb-na-zakvaske.webp",
   updated: "2026-09-26",
   title: {
     ru: "Хлеб на закваске: от первой закваски до хрустящей корки",

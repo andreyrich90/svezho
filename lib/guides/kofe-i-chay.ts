@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "kofe-i-chay",
   emoji: "☕",
+  image: "/img/guides/kofe-i-chay.webp",
   updated: "2026-09-26",
   title: {
     ru: "Кофе и чай дома: пропорции, температура и время, как в кофейне",

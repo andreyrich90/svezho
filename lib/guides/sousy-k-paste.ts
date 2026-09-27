@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "sousy-k-paste",
   emoji: "🍝",
+  image: "/img/guides/sousy-k-paste.webp",
   updated: "2026-09-26",
   title: {
     ru: "Паста как в Италии: как варить и шесть классических соусов",

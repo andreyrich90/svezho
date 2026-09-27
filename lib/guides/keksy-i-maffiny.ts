@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "keksy-i-maffiny",
   emoji: "🧁",
+  image: "/img/guides/keksy-i-maffiny.webp",
   updated: "2026-09-26",
   title: {
     ru: "Кексы и маффины: высокая шапочка, влажная мякоть и никаких «закалов»",
