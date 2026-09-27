@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "specii-i-sol",
   emoji: "🧂",
+  image: "/img/guides/specii-i-sol.webp",
   updated: "2026-09-26",
   title: {
     ru: "Специи и соль: когда солить, как раскрыть аромат специй и сколько класть сушёных трав",

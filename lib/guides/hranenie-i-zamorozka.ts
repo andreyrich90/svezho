@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "hranenie-i-zamorozka",
   emoji: "🧊",
+  image: "/img/guides/hranenie-i-zamorozka.webp",
   updated: "2026-09-26",
   title: {
     ru: "Как хранить и замораживать продукты: зоны холодильника, сроки и правильная разморозка",

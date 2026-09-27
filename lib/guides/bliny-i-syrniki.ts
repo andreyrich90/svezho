@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "bliny-i-syrniki",
   emoji: "🥞",
+  image: "/img/guides/bliny-i-syrniki.webp",
   updated: "2026-09-26",
   title: {
     ru: "Тонкие блины без комков и сырники, которые не расплываются: пропорции и секреты",

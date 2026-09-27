@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "sekrety-yaic",
   emoji: "🥚",
+  image: "/img/guides/sekrety-yaic.webp",
   updated: "2026-09-26",
   title: {
     ru: "Яйца как у шефа: варка по минутам, пашот с первого раза и нежный омлет",

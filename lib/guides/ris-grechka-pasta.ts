@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "ris-grechka-pasta",
   emoji: "🍚",
+  image: "/img/guides/ris-grechka-pasta.webp",
   updated: "2026-09-26",
   title: {
     ru: "Рассыпчатый рис, идеальная гречка и паста al dente: пропорции воды и главные ошибки",

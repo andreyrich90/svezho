@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "drozhzhevoe-testo",
   emoji: "🍞",
+  image: "/img/guides/drozhzhevoe-testo.webp",
   updated: "2026-09-26",
   title: {
     ru: "Дрожжевое тесто, которое всегда поднимается: дрожжи, температура и тест пальцем",
