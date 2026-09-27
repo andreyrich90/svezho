@@ -66,12 +66,19 @@ import { guide as karamel } from "./karamel";
 import { guide as orehi } from "./orehi-i-semechki";
 import { guide as posuda } from "./skovorody-i-kastryuli";
 import { guide as syry } from "./syry-i-syrnaya-tarelka";
+import { guide as kabachki } from "./kabachki-i-baklazhany";
+import { guide as luk } from "./luk-i-chesnok";
+import { guide as pomidory } from "./pomidory";
+import { guide as kapusta } from "./kapusta";
+import { guide as kurica } from "./kurica-celikom";
+import { guide as lanch } from "./lanch-boksy";
 
 export type { Guide, GuideSection, GuideFaq } from "./types";
 
 // "Секреты кухни" — long-read articles, newest first. Add a new article by
 // creating lib/guides/<slug>.ts and listing it here.
 export const GUIDES: Guide[] = [
+  kabachki, luk, pomidory, kapusta, kurica, lanch,
   yabloki, tykva, karamel, orehi, posuda, syry,
   plov, pechen, ppGotovka, zapekanki, travy, salat,
   sushi, tort, morozhenoe, holodec, utka, mikrovolnovka,
