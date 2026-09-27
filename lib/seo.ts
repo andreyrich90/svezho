@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
 import { DEFAULT_LANG, LOCALES, type Lang } from "./langs";
 
-// The canonical production origin. Canonicals and hreflang must point at the
-// real live domain, so this resolves in order:
-//   1. NEXT_PUBLIC_SITE_URL  — set this once your custom domain is connected
-//   2. VERCEL_PROJECT_PRODUCTION_URL — Vercel's stable production hostname
-//   3. the current preview/prod vercel.app fallback
-export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "https://svezho.vercel.app")
-).replace(/\/+$/, "");
+// The canonical production origin. Canonicals, hreflang, robots.txt and every
+// <loc> in sitemap.xml must point at the live domain — Search Console rejects
+// a sitemap on recepto.org whose URLs name another host. NEXT_PUBLIC_SITE_URL
+// overrides it (e.g. for a staging domain); otherwise it is always recepto.org,
+// never a *.vercel.app hostname.
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://recepto.org").replace(/\/+$/, "");
 
 // Branded 1200x630 share card, used when a page has no real photo of its own.
 export const OG_FALLBACK = `${SITE_URL}/og.png`;
