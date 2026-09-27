@@ -44,7 +44,7 @@ export function recipeJsonLd(recipe: Recipe, lang: Lang, categoryName?: string) 
         name: `${i + 1}`,
         text,
         url: `${url}#step-${i + 1}`,
-        ...(isRealPhoto(photo) ? { image: photo } : {}),
+        ...(isRealPhoto(photo) ? { image: absUrl(photo) } : {}),
       };
     }),
     nutrition: recipe.calories

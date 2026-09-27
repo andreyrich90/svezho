@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { LOCALES, type Lang } from "@/lib/langs";
-import { SITE_URL, localePath, isRealPhoto } from "@/lib/seo";
+import { SITE_URL, localePath, isRealPhoto, absUrl } from "@/lib/seo";
 import { INGREDIENT_LANDINGS, recipesWithIngredient, MIN_LANDING_RECIPES } from "@/lib/landings";
 import { COLLECTIONS } from "@/lib/collections";
 import { RECIPE_CATEGORIES } from "@/lib/types";
@@ -61,7 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   for (const c of COLLECTIONS) out.push(...entries(`/collections/${c.slug}`, 0.7, "weekly"));
   for (const r of recipes) {
-    const images = [r.image, ...(r.gallery ?? [])].filter(isRealPhoto);
+    const images = [r.image, ...(r.gallery ?? [])].filter(isRealPhoto).map(absUrl);
     const created = r.createdAt ? new Date(r.createdAt) : undefined;
     out.push(
       ...entries(`/recipes/${r.slug}`, 0.9, "weekly", {

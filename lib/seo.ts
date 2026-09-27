@@ -21,9 +21,10 @@ export function absUrl(src: string): string {
   return /^https?:\/\//.test(src) ? src : `${SITE_URL}${src.startsWith("/") ? "" : "/"}${src}`;
 }
 
-/** True for an uploaded photo (not one of the /img/recipes/*.svg placeholders). */
+/** True for a real photo — uploaded or shipped under /img — not one of the
+ *  /img/recipes/*.svg placeholders. Pass through absUrl() before emitting. */
 export function isRealPhoto(src?: string | null): src is string {
-  return !!src && /^https?:\/\//.test(src) && !/\.svg(\?|$)/i.test(src);
+  return !!src && /^(https?:\/\/|\/)/.test(src) && !/\.svg(\?|$)/i.test(src);
 }
 
 // Our URL locale segment ("ua") vs. the BCP-47 code search engines expect ("uk").

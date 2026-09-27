@@ -1,6 +1,7 @@
 import { SEED_LIFEHACKS, SEED_RECIPES } from "./data";
 import { getServerSupabase, isSupabaseConfigured } from "./supabase/admin";
 import type { Lifehack, Recipe } from "./types";
+import { withRepoPhotos } from "./recipe-photos";
 
 // Single content-access layer. If Supabase is configured it reads the live
 // tables; otherwise it serves the built-in seed content so the site works with
@@ -13,7 +14,7 @@ function coverFor(category: string, image?: string | null): string {
 }
 
 function mapRecipe(row: any): Recipe {
-  return {
+  return withRepoPhotos({
     id: row.id,
     slug: row.slug,
     category: row.category,
@@ -30,7 +31,7 @@ function mapRecipe(row: any): Recipe {
     steps: row.steps,
     tags: row.tags,
     createdAt: row.created_at,
-  };
+  });
 }
 
 function mapLifehack(row: any): Lifehack {
@@ -46,17 +47,19 @@ function mapLifehack(row: any): Lifehack {
   };
 }
 
+const SEED = SEED_RECIPES.map(withRepoPhotos);
+
 export async function getRecipes(): Promise<Recipe[]> {
-  if (!isSupabaseConfigured()) return SEED_RECIPES;
+  if (!isSupabaseConfigured()) return SEED;
   try {
     const { data, error } = await getServerSupabase()
       .from("recipes")
       .select("*")
       .order("created_at", { ascending: false });
-    if (error || !data || data.length === 0) return SEED_RECIPES;
+    if (error || !data || data.length === 0) return SEED;
     return data.map(mapRecipe);
   } catch {
-    return SEED_RECIPES;
+    return SEED;
   }
 }
 

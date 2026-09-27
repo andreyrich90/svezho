@@ -8,7 +8,7 @@ import PopularLinks from "@/components/PopularLinks";
 import { getDict } from "@/lib/i18n";
 import { isLang, pick, LOCALES, type Lang } from "@/lib/langs";
 import { href } from "@/lib/nav";
-import { alternates, ogLocale, OG_FALLBACK, isRealPhoto } from "@/lib/seo";
+import { alternates, ogLocale, OG_FALLBACK, isRealPhoto, absUrl } from "@/lib/seo";
 import { categoryLanding, ingredientLandingsFor } from "@/lib/landings";
 import { COLLECTIONS } from "@/lib/collections";
 import { recipeJsonLd, breadcrumbJsonLd, jsonLdScript } from "@/lib/jsonld";
@@ -44,7 +44,7 @@ export async function generateMetadata({
   // "<dish> — рецепт с фото пошагово": the phrase people actually search.
   const title = `${name} ${t["seo.recipeSuffix"]}`;
   const description = pick(recipe.description, lang);
-  const ogImage = isRealPhoto(recipe.image) ? recipe.image : OG_FALLBACK;
+  const ogImage = isRealPhoto(recipe.image) ? absUrl(recipe.image) : OG_FALLBACK;
   return {
     title,
     description,
