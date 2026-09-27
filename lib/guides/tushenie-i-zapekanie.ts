@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "tushenie-i-zapekanie",
   emoji: "🍖",
+  image: "/img/guides/tushenie-i-zapekanie.webp",
   updated: "2026-09-26",
   title: {
     ru: "Тушение и запекание мяса: мягкое, как масло, и сочное внутри",

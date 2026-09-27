@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "sekrety-kartofelya",
   emoji: "🥔",
+  image: "/img/guides/sekrety-kartofelya.webp",
   updated: "2026-09-26",
   title: {
     ru: "Картофель: воздушное пюре, хрустящая запечённая картошка и жареная без каши",

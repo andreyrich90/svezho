@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "sekrety-shokolada",
   emoji: "🍫",
+  image: "/img/guides/sekrety-shokolada.webp",
   updated: "2026-09-26",
   title: {
     ru: "Шоколад без ошибок: как растопить, темперировать и сделать ганаш",

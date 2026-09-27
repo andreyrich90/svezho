@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "testo-dlya-piccy",
   emoji: "🍕",
+  image: "/img/guides/testo-dlya-piccy.webp",
   updated: "2026-09-26",
   title: {
     ru: "Пицца как в пиццерии в домашней духовке: тесто, соус и жар",

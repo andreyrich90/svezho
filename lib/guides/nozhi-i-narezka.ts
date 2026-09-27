@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "nozhi-i-narezka",
   emoji: "🔪",
+  image: "/img/guides/nozhi-i-narezka.webp",
   updated: "2026-09-26",
   title: {
     ru: "Ножи и нарезка: как резать быстро, ровно и безопасно",
