@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "domashnee-morozhenoe",
   emoji: "🍦",
+  image: "/img/guides/domashnee-morozhenoe.webp",
   updated: "2026-09-26",
   title: {
     ru: "Домашнее мороженое без мороженицы: пломбир, сорбет и мороженое из бананов",

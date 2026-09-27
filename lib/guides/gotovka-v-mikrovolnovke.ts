@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "gotovka-v-mikrovolnovke",
   emoji: "📡",
+  image: "/img/guides/gotovka-v-mikrovolnovke.webp",
   updated: "2026-09-26",
   title: {
     ru: "Микроволновка: как разогревать равномерно, что можно готовить и чего нельзя",

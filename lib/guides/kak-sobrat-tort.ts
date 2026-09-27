@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "kak-sobrat-tort",
   emoji: "🎂",
+  image: "/img/guides/kak-sobrat-tort.webp",
   updated: "2026-09-26",
   title: {
     ru: "Как собрать торт дома: ровные коржи, пропитка, выравнивание и подтёки",

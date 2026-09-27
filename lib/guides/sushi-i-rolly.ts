@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "sushi-i-rolly",
   emoji: "🍣",
+  image: "/img/guides/sushi-i-rolly.webp",
   updated: "2026-09-26",
   title: {
     ru: "Суши и роллы дома: рис как в ресторане, начинки и безопасная рыба",

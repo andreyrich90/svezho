@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "utka-i-indeyka",
   emoji: "🦃",
+  image: "/img/guides/utka-i-indeyka.webp",
   updated: "2026-09-26",
   title: {
     ru: "Утка и индейка: хрустящая кожа, сочная грудка и правильная разделка",

@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "holodec-i-zalivnoe",
   emoji: "🍲",
+  image: "/img/guides/holodec-i-zalivnoe.webp",
   updated: "2026-09-26",
   title: {
     ru: "Холодец и заливное: прозрачный, застывает без желатина и режется ножом",
