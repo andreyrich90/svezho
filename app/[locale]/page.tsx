@@ -13,6 +13,7 @@ import { isLang, pick, type Lang } from "@/lib/langs";
 import { href } from "@/lib/nav";
 import { COLLECTIONS } from "@/lib/collections";
 import { isRealPhoto } from "@/lib/seo";
+import type { Recipe } from "@/lib/types";
 import { getCollectionCovers, getLifehacks, getPpRecipes, getRecipes } from "@/lib/content";
 
 // Re-read from the database in the background at most every 30s (ISR),
@@ -35,11 +36,8 @@ export default async function HomePage({
     getCollectionCovers(),
   ]);
 
-  const featured = recipes.slice(0, 6);
-  // Hero shows real food photos: recipes that have one come first, and the
-  // category placeholders are used only while no recipe has a photo yet.
-  const withPhoto = recipes.filter((r) => isRealPhoto(r.image));
-  const heroImgs = (withPhoto.length >= 2 ? withPhoto : recipes).slice(0, 2);
+  const featured = showcase(recipes, 6);
+  const heroImgs = heroPicks(recipes);
 
   const bySlug = new Map(recipes.map((r) => [r.slug, r]));
   const collectionCards = COLLECTIONS.map((c) => {
@@ -198,6 +196,42 @@ export default async function HomePage({
       <MealPlanBanner />
     </>
   );
+}
+
+// Order in which categories take turns on the home page, so the showcase
+// reads as a menu (a main, a salad, a breakfast…) rather than six cutlets.
+const SHOWCASE_ORDER = ["main", "salad", "breakfast", "snack", "soup", "dessert", "baking", "drink"];
+
+// Recipes with a real photo first, one category at a time (round-robin);
+// placeholders only fill the gaps while few recipes have photos.
+function showcase(recipes: Recipe[], n: number): Recipe[] {
+  const withPhoto = recipes.filter((r) => isRealPhoto(r.image));
+  const byCat = new Map<string, Recipe[]>();
+  for (const r of withPhoto) byCat.set(r.category, [...(byCat.get(r.category) ?? []), r]);
+  const cats = [...SHOWCASE_ORDER, ...[...byCat.keys()].filter((c) => !SHOWCASE_ORDER.includes(c))];
+  const out: Recipe[] = [];
+  while (out.length < n && [...byCat.values()].some((l) => l.length)) {
+    for (const c of cats) {
+      const next = byCat.get(c)?.shift();
+      if (next && out.length < n) out.push(next);
+    }
+  }
+  for (const r of recipes) if (out.length < n && !out.includes(r)) out.push(r);
+  return out;
+}
+
+// Hero: a hearty meat dish up front, then a lighter dish of another category.
+const HERO_FIRST = ["kurinye-krylya-v-medovo-chesnochnoy-glazuri", "domashnie-myasnye-kotlety", "pozharskie-kotlety"];
+
+function heroPicks(recipes: Recipe[]): Recipe[] {
+  const withPhoto = recipes.filter((r) => isRealPhoto(r.image));
+  if (withPhoto.length < 2) return recipes.slice(0, 2);
+  const first =
+    HERO_FIRST.map((s) => withPhoto.find((r) => r.slug === s)).find(Boolean) ??
+    withPhoto.find((r) => r.category === "main") ??
+    withPhoto[0];
+  const second = withPhoto.find((r) => r !== first && r.category !== first.category) ?? withPhoto.find((r) => r !== first)!;
+  return [first, second];
 }
 
 function Stat({ href, value, label }: { href: string; value: string; label: string }) {
