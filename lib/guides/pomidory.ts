@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "pomidory",
   emoji: "🍅",
+  image: "/img/guides/pomidory.webp",
   updated: "2026-09-27",
   title: {
     ru: "Помидоры: как выбрать вкусные, снять кожицу, сварить соус и завялить",

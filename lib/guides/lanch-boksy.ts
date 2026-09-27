@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "lanch-boksy",
   emoji: "🍱",
+  image: "/img/guides/lanch-boksy.webp",
   updated: "2026-09-27",
   title: {
     ru: "Еда с собой: как собрать ланч-бокс, который вкусен к обеду и безопасен",

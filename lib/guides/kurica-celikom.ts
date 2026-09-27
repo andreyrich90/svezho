@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "kurica-celikom",
   emoji: "🐔",
+  image: "/img/guides/kurica-celikom.webp",
   updated: "2026-09-27",
   title: {
     ru: "Курица целиком: как разделать, запечь с хрустящей кожей и сварить бульон из остатков",

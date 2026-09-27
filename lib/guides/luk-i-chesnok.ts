@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "luk-i-chesnok",
   emoji: "🧅",
+  image: "/img/guides/luk-i-chesnok.webp",
   updated: "2026-09-27",
   title: {
     ru: "Лук и чеснок: как резать без слёз, карамелизовать и не сжечь",

@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "kabachki-i-baklazhany",
   emoji: "🍆",
+  image: "/img/guides/kabachki-i-baklazhany.webp",
   updated: "2026-09-27",
   title: {
     ru: "Кабачки и баклажаны: без горечи, без лишнего масла и без водянистой каши",

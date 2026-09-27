@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "kapusta",
   emoji: "🥬",
+  image: "/img/guides/kapusta.webp",
   updated: "2026-09-27",
   title: {
     ru: "Капуста: квашеная, тушёная, запечённая — и без неприятного запаха",
