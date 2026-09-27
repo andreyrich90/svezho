@@ -22,6 +22,12 @@ export const RECIPE_PHOTOS: Record<string, { cover?: boolean; steps?: number }> 
   "zolotye-lukovye-kolca-v-pivnom-klyare": { cover: true },
   "kartofelnye-dolki-s-paprikoy": { cover: true },
   "syrnye-palochki-v-dvoynoy-panirovke": { cover: true },
+  "kurinye-krylya-v-medovo-chesnochnoy-glazuri": { cover: true },
+  "rzhanye-grenki-s-chesnokom-i-syrnym-dipom": { cover: true },
+  "kurinye-oladi-s-kabachkom": { cover: true },
+  "domashnie-myasnye-kotlety": { cover: true },
+  "pozharskie-kotlety": { cover: true },
+  "kurinye-kotlety-s-syrom": { cover: true },
 };
 
 const isPlaceholder = (src?: string | null) => !src || !src.trim() || /\.svg(\?|$)/i.test(src);
