@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "bobovye",
   emoji: "🫘",
+  image: "/img/guides/bobovye.webp",
   updated: "2026-09-26",
   title: {
     ru: "Фасоль, нут, чечевица: как замачивать, сколько варить и как сделать хумус",

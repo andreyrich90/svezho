@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "sekrety-pechenya",
   emoji: "🍪",
+  image: "/img/guides/sekrety-pechenya.webp",
   updated: "2026-09-26",
   title: {
     ru: "Печенье: как сделать его тягучим, хрустящим или мягким — по вашему выбору",

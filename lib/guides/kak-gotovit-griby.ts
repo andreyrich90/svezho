@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "kak-gotovit-griby",
   emoji: "🍄",
+  image: "/img/guides/kak-gotovit-griby.webp",
   updated: "2026-09-26",
   title: {
     ru: "Грибы: как чистить, жарить до корочки и не отравиться лесными",

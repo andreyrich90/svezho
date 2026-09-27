@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "solenie-ryby",
   emoji: "🐟",
+  image: "/img/guides/solenie-ryby.webp",
   updated: "2026-09-26",
   title: {
     ru: "Как засолить рыбу дома: красная рыба, сельдь и скумбрия — безопасно и вкусно",

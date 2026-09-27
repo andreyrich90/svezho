@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "mery-i-vesa",
   emoji: "⚖️",
+  image: "/img/guides/mery-i-vesa.webp",
   updated: "2026-09-26",
   title: {
     ru: "Сколько граммов в ложке и стакане: таблица мер, температур и замен",

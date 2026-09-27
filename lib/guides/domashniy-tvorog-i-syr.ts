@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "domashniy-tvorog-i-syr",
   emoji: "🧀",
+  image: "/img/guides/domashniy-tvorog-i-syr.webp",
   updated: "2026-09-26",
   title: {
     ru: "Домашний творог, рикотта, панир и маскарпоне из обычного молока",
