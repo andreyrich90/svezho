@@ -12,6 +12,7 @@ import { getDict } from "@/lib/i18n";
 import { isLang, pick, type Lang } from "@/lib/langs";
 import { href } from "@/lib/nav";
 import { COLLECTIONS } from "@/lib/collections";
+import { isRealPhoto } from "@/lib/seo";
 import { getCollectionCovers, getLifehacks, getPpRecipes, getRecipes } from "@/lib/content";
 
 // Re-read from the database in the background at most every 30s (ISR),
@@ -35,7 +36,10 @@ export default async function HomePage({
   ]);
 
   const featured = recipes.slice(0, 6);
-  const heroImgs = featured.slice(0, 2);
+  // Hero shows real food photos: recipes that have one come first, and the
+  // category placeholders are used only while no recipe has a photo yet.
+  const withPhoto = recipes.filter((r) => isRealPhoto(r.image));
+  const heroImgs = (withPhoto.length >= 2 ? withPhoto : recipes).slice(0, 2);
 
   const bySlug = new Map(recipes.map((r) => [r.slug, r]));
   const collectionCards = COLLECTIONS.map((c) => {
@@ -85,10 +89,11 @@ export default async function HomePage({
 
             <HeroSearch />
 
-            <div className="rise rise-3 mt-10 flex flex-wrap gap-8">
-              <Stat value={`${recipes.length}`} label={t["home.stats.recipes"]} />
-              <Stat value={`${pp.length}`} label={t["home.stats.pp"]} />
-              <Stat value={`${lifehacks.length}`} label={t["home.stats.lifehacks"]} />
+            <div className="rise rise-3 mt-10 grid grid-cols-2 gap-x-8 gap-y-5 sm:flex sm:flex-wrap">
+              <Stat href={href(lang, "/recipes")} value={`${recipes.length}`} label={t["home.stats.recipes"]} />
+              <Stat href={href(lang, "/pp")} value={`${pp.length}`} label={t["home.stats.pp"]} />
+              <Stat href={href(lang, "/guides")} value={`${GUIDES.length}`} label={t["home.stats.guides"]} />
+              <Stat href={href(lang, "/lifehacks")} value={`${lifehacks.length}`} label={t["home.stats.lifehacks"]} />
             </div>
 
             {/* Hero image on mobile (the side visual is desktop-only). */}
@@ -195,12 +200,15 @@ export default async function HomePage({
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
+function Stat({ href, value, label }: { href: string; value: string; label: string }) {
   return (
-    <div>
-      <div className="font-display text-3xl font-semibold text-basil">{value}</div>
-      <div className="mt-0.5 text-[12.5px] font-semibold text-muted">{label}</div>
-    </div>
+    <Link href={href} className="group block">
+      <div className="font-display text-3xl font-semibold text-basil transition group-hover:text-clay">{value}</div>
+      <div className="mt-0.5 inline-flex items-center gap-1 text-[12.5px] font-semibold text-muted underline decoration-line decoration-2 underline-offset-4 transition group-hover:text-clay group-hover:decoration-clay">
+        {label}
+        <ArrowRight size={12} className="transition group-hover:translate-x-0.5" />
+      </div>
+    </Link>
   );
 }
 

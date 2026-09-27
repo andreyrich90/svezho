@@ -50,6 +50,7 @@ const ru: Dict = {
   "home.stats.recipes": "рецептов",
   "home.stats.pp": "ПП-блюд",
   "home.stats.lifehacks": "лайфхаков",
+  "home.stats.guides": "секретов кухни",
 
   "home.popular.title": "Популярное на этой неделе",
   "home.popular.subtitle": "То, что чаще всего готовят прямо сейчас",
@@ -216,6 +217,7 @@ const en: Dict = {
   "home.stats.recipes": "recipes",
   "home.stats.pp": "healthy dishes",
   "home.stats.lifehacks": "lifehacks",
+  "home.stats.guides": "kitchen secrets",
 
   "home.popular.title": "Popular this week",
   "home.popular.subtitle": "What people are cooking right now",
@@ -382,6 +384,7 @@ const ua: Dict = {
   "home.stats.recipes": "рецептів",
   "home.stats.pp": "страв ПХ",
   "home.stats.lifehacks": "лайфхаків",
+  "home.stats.guides": "секретів кухні",
 
   "home.popular.title": "Популярне цього тижня",
   "home.popular.subtitle": "Те, що найчастіше готують просто зараз",
