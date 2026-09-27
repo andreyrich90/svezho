@@ -1,4 +1,5 @@
 import type { Lifehack, Recipe } from "./types";
+import { EXTRA_LIFEHACKS } from "./lifehacks-extra";
 
 // Built-in seed content. This is what renders when Supabase is not configured,
 // and it doubles as the reference shape for the `recipes` / `lifehacks` tables
@@ -2411,7 +2412,7 @@ export const SEED_RECIPES: Recipe[] = [
   },
 ];
 
-export const SEED_LIFEHACKS: Lifehack[] = [
+const BASE_LIFEHACKS: Lifehack[] = [
   {
     id: "l-herbs",
     slug: "kak-hranit-zelen",
@@ -2559,3 +2560,6 @@ export const SEED_LIFEHACKS: Lifehack[] = [
     createdAt: "2026-08-06T09:00:00Z",
   },
 ];
+
+// First batch above + the second batch kept in its own file.
+export const SEED_LIFEHACKS: Lifehack[] = [...BASE_LIFEHACKS, ...EXTRA_LIFEHACKS];

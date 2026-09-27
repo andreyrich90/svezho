@@ -30,6 +30,14 @@ export default function CookieBanner() {
     } catch {
       /* ignore */
     }
+    // Tell Google Analytics / AdSense (Consent Mode) that cookies are now OK.
+    const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+    w.gtag?.("consent", "update", {
+      analytics_storage: "granted",
+      ad_storage: "granted",
+      ad_user_data: "granted",
+      ad_personalization: "granted",
+    });
     setShow(false);
   };
 

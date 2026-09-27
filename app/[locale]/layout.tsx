@@ -12,6 +12,21 @@ import { SITE_URL, alternates, ogLocale, OG_FALLBACK } from "@/lib/seo";
 import { siteJsonLd, jsonLdScript } from "@/lib/jsonld";
 
 const ADSENSE_ID = process.env.NEXT_PUBLIC_ADSENSE_ID;
+// Google Analytics 4 measurement id (G-XXXXXXX). Validated because it is
+// interpolated into an inline script.
+const GA_ID = /^G-[A-Z0-9]+$/.test(process.env.NEXT_PUBLIC_GA_ID ?? "")
+  ? process.env.NEXT_PUBLIC_GA_ID
+  : undefined;
+
+// Consent Mode v2: until the visitor presses "Accept" in the cookie banner,
+// GA runs cookieless (storage denied); CookieBanner flips it to granted.
+// "recepto-cookie" is CookieBanner's localStorage key.
+const gaScript = (id: string) => `
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+var ok=false;try{ok=localStorage.getItem('recepto-cookie')==='1'}catch(e){}
+var v=ok?'granted':'denied';
+gtag('consent','default',{analytics_storage:v,ad_storage:v,ad_user_data:v,ad_personalization:v});
+gtag('js',new Date());gtag('config','${id}');`;
 
 const display = Playfair_Display({
   subsets: ["latin", "cyrillic"],
@@ -92,6 +107,12 @@ export default async function LocaleLayout({
   return (
     <html lang={lang} className={`${display.variable} ${body.variable}`}>
       <head>
+        {GA_ID && (
+          <>
+            <script dangerouslySetInnerHTML={{ __html: gaScript(GA_ID) }} />
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+          </>
+        )}
         {/* Google AdSense loader — only when a publisher id is configured. */}
         {ADSENSE_ID && (
           // eslint-disable-next-line @next/next/no-sync-scripts

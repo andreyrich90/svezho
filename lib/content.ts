@@ -106,7 +106,13 @@ export async function getLifehacks(): Promise<Lifehack[]> {
       .select("*")
       .order("created_at", { ascending: false });
     if (error || !data || data.length === 0) return SEED_LIFEHACKS;
-    return data.map(mapLifehack);
+    // Lifehacks written in code (lib/data.ts) show up even if nobody has run
+    // their SQL yet; a DB row with the same slug wins.
+    const db = data.map(mapLifehack);
+    const inDb = new Set(db.map((l) => l.slug));
+    return [...db, ...SEED_LIFEHACKS.filter((l) => !inDb.has(l.slug))].sort((a, b) =>
+      b.createdAt.localeCompare(a.createdAt),
+    );
   } catch {
     return SEED_LIFEHACKS;
   }
