@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "syry-i-syrnaya-tarelka",
   emoji: "🧀",
+  image: "/img/guides/syry-i-syrnaya-tarelka.webp",
   updated: "2026-09-27",
   title: {
     ru: "Сыр: как выбрать, хранить, расплавить и собрать сырную тарелку",

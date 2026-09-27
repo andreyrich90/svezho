@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "skovorody-i-kastryuli",
   emoji: "🫕",
+  image: "/img/guides/skovorody-i-kastryuli.webp",
   updated: "2026-09-27",
   title: {
     ru: "Сковороды и кастрюли: чугун, нержавейка или антипригар — что для чего и как ухаживать",

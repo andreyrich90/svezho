@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "orehi-i-semechki",
   emoji: "🥜",
+  image: "/img/guides/orehi-i-semechki.webp",
   updated: "2026-09-27",
   title: {
     ru: "Орехи и семечки: как обжарить, почистить, хранить и сделать ореховую пасту",

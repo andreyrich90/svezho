@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "yabloki",
   emoji: "🍎",
+  image: "/img/guides/yabloki.webp",
   updated: "2026-09-27",
   title: {
     ru: "Яблоки на кухне: какие сорта для чего, печёные яблоки и шарлотка без сырой середины",

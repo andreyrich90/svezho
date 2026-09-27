@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "tykva",
   emoji: "🎃",
+  image: "/img/guides/tykva.webp",
   updated: "2026-09-27",
   title: {
     ru: "Тыква: как выбрать, разрезать и приготовить — от крем-супа до пирога",

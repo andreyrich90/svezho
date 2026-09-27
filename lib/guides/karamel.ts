@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "karamel",
   emoji: "🍯",
+  image: "/img/guides/karamel.webp",
   updated: "2026-09-27",
   title: {
     ru: "Карамель и сахарные сиропы: солёная карамель, глазурь и почему сахар кристаллизуется",
