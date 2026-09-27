@@ -52,6 +52,12 @@ export const RECIPE_PHOTOS: Record<string, { cover?: boolean; steps?: number }> 
   "kurinyy-sup-s-lapshoy": { cover: true },
   "shokoladnyy-fondan": { cover: true },
   "chizkeyk-bez-vypechki": { cover: true },
+  "tiramisu-klassicheskiy": { cover: true },
+  "ovsyanoe-pechenye": { cover: true },
+  "bananovyy-hleb": { cover: true },
+  "tvorozhnaya-zapekanka": { cover: true },
+  "sharlotka-s-yablokami": { cover: true },
+  "shokoladnyy-brauni": { cover: true },
 };
 
 const isPlaceholder = (src?: string | null) => !src || !src.trim() || /\.svg(\?|$)/i.test(src);
