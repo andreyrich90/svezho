@@ -58,6 +58,12 @@ export const RECIPE_PHOTOS: Record<string, { cover?: boolean; steps?: number }> 
   "tvorozhnaya-zapekanka": { cover: true },
   "sharlotka-s-yablokami": { cover: true },
   "shokoladnyy-brauni": { cover: true },
+  "omlet-s-ovoschami-i-syrom": { cover: true },
+  "shakshuka": { cover: true },
+  "lenivaya-ovsyanka-v-banke": { cover: true },
+  "domashnyaya-granola": { cover: true },
+  "frantsuzskie-grenki": { cover: true },
+  "amerikanskie-pankeyki": { cover: true },
 };
 
 const isPlaceholder = (src?: string | null) => !src || !src.trim() || /\.svg(\?|$)/i.test(src);
