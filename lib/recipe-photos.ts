@@ -46,6 +46,12 @@ export const RECIPE_PHOTOS: Record<string, { cover?: boolean; steps?: number }> 
   "kuritsa-teriyaki": { cover: true },
   "kurinye-bedra-medovo-gorchichnye": { cover: true },
   "kuritsa-v-karri-s-kokosovym-molokom": { cover: true },
+  "kurinye-shashlychki-v-duhovke": { cover: true },
+  "kuritsa-stir-fray-s-ovoschami": { cover: true },
+  "kurinyy-shnitsel-v-panirovke": { cover: true },
+  "kurinyy-sup-s-lapshoy": { cover: true },
+  "shokoladnyy-fondan": { cover: true },
+  "chizkeyk-bez-vypechki": { cover: true },
 };
 
 const isPlaceholder = (src?: string | null) => !src || !src.trim() || /\.svg(\?|$)/i.test(src);
