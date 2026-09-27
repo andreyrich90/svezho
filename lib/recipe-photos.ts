@@ -16,6 +16,12 @@ export const RECIPE_PHOTOS: Record<string, { cover?: boolean; steps?: number }> 
   "grecheskiy-salat": { cover: true },
   "tomatnyy-krem-sup": { cover: true },
   "kurica-s-kinoa-bowl": { cover: true },
+  "pasta-s-tomatami-i-bazilikom": { cover: true },
+  "zelenyy-smuzi": { cover: true },
+  "syrniki-iz-tvoroga": { cover: true },
+  "zolotye-lukovye-kolca-v-pivnom-klyare": { cover: true },
+  "kartofelnye-dolki-s-paprikoy": { cover: true },
+  "syrnye-palochki-v-dvoynoy-panirovke": { cover: true },
 };
 
 const isPlaceholder = (src?: string | null) => !src || !src.trim() || /\.svg(\?|$)/i.test(src);
