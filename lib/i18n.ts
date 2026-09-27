@@ -167,6 +167,8 @@ const ru: Dict = {
   "cookie.text": "Мы используем cookie для работы сайта, аналитики и показа рекламы.",
   "cookie.accept": "Принять",
   "cookie.more": "Подробнее",
+  "cookie.decline": "Отклонить",
+  "cookie.settings": "Настройки cookie",
 };
 
 const en: Dict = {
@@ -331,6 +333,8 @@ const en: Dict = {
   "cookie.text": "We use cookies to run the site, for analytics and to serve ads.",
   "cookie.accept": "Accept",
   "cookie.more": "Learn more",
+  "cookie.decline": "Decline",
+  "cookie.settings": "Cookie settings",
 };
 
 const ua: Dict = {
@@ -495,6 +499,8 @@ const ua: Dict = {
   "cookie.text": "Ми використовуємо cookie для роботи сайту, аналітики та показу реклами.",
   "cookie.accept": "Прийняти",
   "cookie.more": "Докладніше",
+  "cookie.decline": "Відхилити",
+  "cookie.settings": "Налаштування cookie",
 };
 
 export const T: Record<Lang, Dict> = { ru, en, ua };

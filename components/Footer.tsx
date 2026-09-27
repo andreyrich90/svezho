@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLang, useT } from "./DictProvider";
 import { href } from "@/lib/nav";
+import { COOKIE_SETTINGS_EVENT } from "./CookieBanner";
 
 export default function Footer({ extra }: { extra?: React.ReactNode }) {
   const t = useT();
@@ -54,6 +55,13 @@ export default function Footer({ extra }: { extra?: React.ReactNode }) {
             <Link href={href(lang, "/privacy")} className="footlink">
               {t("footer.link.privacy")}
             </Link>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT))}
+              className="footlink text-left"
+            >
+              {t("cookie.settings")}
+            </button>
           </FootCol>
 
           <FootCol title={t("footer.col.social")}>

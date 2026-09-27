@@ -26,6 +26,7 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
 var ok=false;try{ok=localStorage.getItem('recepto-cookie')==='1'}catch(e){}
 var v=ok?'granted':'denied';
 gtag('consent','default',{analytics_storage:v,ad_storage:v,ad_user_data:v,ad_personalization:v});
+gtag('set','ads_data_redaction',true);
 gtag('js',new Date());gtag('config','${id}');`;
 
 const display = Playfair_Display({

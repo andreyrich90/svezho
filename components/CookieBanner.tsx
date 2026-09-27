@@ -5,10 +5,27 @@ import Link from "next/link";
 import { useLang, useT } from "./DictProvider";
 import { href } from "@/lib/nav";
 
+// localStorage key: "1" = accepted, "0" = declined, absent = not asked yet.
+// The inline GA snippet in app/[locale]/layout.tsx reads the same key to set
+// the Consent Mode default before Google's tag loads.
 const KEY = "recepto-cookie";
+// Fired by the footer's "Cookie settings" link to reopen the banner.
+export const COOKIE_SETTINGS_EVENT = "recepto:cookie-settings";
 
-// A lightweight cookie-consent notice (required copy for AdSense/GDPR-style
-// disclosure). Stored client-side so it shows once; no data leaves the browser.
+type Gtag = (...args: unknown[]) => void;
+
+function updateConsent(granted: boolean) {
+  const v = granted ? "granted" : "denied";
+  (window as unknown as { gtag?: Gtag }).gtag?.("consent", "update", {
+    analytics_storage: v,
+    ad_storage: v,
+    ad_user_data: v,
+    ad_personalization: v,
+  });
+}
+
+// Cookie consent notice with equal Accept / Decline choices (EU rules and
+// Google Consent Mode v2). The choice is remembered and can be changed later.
 export default function CookieBanner() {
   const t = useT();
   const lang = useLang();
@@ -20,24 +37,20 @@ export default function CookieBanner() {
     } catch {
       /* localStorage unavailable — just don't show */
     }
+    const reopen = () => setShow(true);
+    window.addEventListener(COOKIE_SETTINGS_EVENT, reopen);
+    return () => window.removeEventListener(COOKIE_SETTINGS_EVENT, reopen);
   }, []);
 
   if (!show) return null;
 
-  const accept = () => {
+  const choose = (granted: boolean) => {
     try {
-      localStorage.setItem(KEY, "1");
+      localStorage.setItem(KEY, granted ? "1" : "0");
     } catch {
       /* ignore */
     }
-    // Tell Google Analytics / AdSense (Consent Mode) that cookies are now OK.
-    const w = window as unknown as { gtag?: (...args: unknown[]) => void };
-    w.gtag?.("consent", "update", {
-      analytics_storage: "granted",
-      ad_storage: "granted",
-      ad_user_data: "granted",
-      ad_personalization: "granted",
-    });
+    updateConsent(granted);
     setShow(false);
   };
 
@@ -50,12 +63,20 @@ export default function CookieBanner() {
             {t("cookie.more")}
           </Link>
         </p>
-        <button
-          onClick={accept}
-          className="shrink-0 rounded-full bg-clay px-5 py-2 text-sm font-bold text-white transition hover:bg-clay2"
-        >
-          {t("cookie.accept")}
-        </button>
+        <div className="flex shrink-0 gap-2">
+          <button
+            onClick={() => choose(false)}
+            className="rounded-full border border-line px-5 py-2 text-sm font-bold text-ink transition hover:bg-cream2"
+          >
+            {t("cookie.decline")}
+          </button>
+          <button
+            onClick={() => choose(true)}
+            className="rounded-full bg-clay px-5 py-2 text-sm font-bold text-white transition hover:bg-clay2"
+          >
+            {t("cookie.accept")}
+          </button>
+        </div>
       </div>
     </div>
   );
