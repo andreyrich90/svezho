@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "zharka-vo-frityure",
   emoji: "🍤",
+  image: "/img/guides/zharka-vo-frityure.webp",
   updated: "2026-09-26",
   title: {
     ru: "Жарка во фритюре дома: хрустящая корочка без лишнего жира и безопасно",

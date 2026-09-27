@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "deserty-bez-vypechki",
   emoji: "🍮",
+  image: "/img/guides/deserty-bez-vypechki.webp",
   updated: "2026-09-26",
   title: {
     ru: "Десерты без выпечки: желатин, агар, панна-котта и муссы, которые держат форму",

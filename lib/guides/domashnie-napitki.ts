@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "domashnie-napitki",
   emoji: "🍹",
+  image: "/img/guides/domashnie-napitki.webp",
   updated: "2026-09-26",
   title: {
     ru: "Домашние напитки: лимонады, морсы, компоты и смузи по формулам",

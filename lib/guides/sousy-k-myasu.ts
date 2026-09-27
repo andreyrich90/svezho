@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "sousy-k-myasu",
   emoji: "🥩",
+  image: "/img/guides/sousy-k-myasu.webp",
   updated: "2026-09-26",
   title: {
     ru: "Соусы к мясу: перечный, грибной, подлива, чимичурри и барбекю",

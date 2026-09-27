@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "prazdnichnyy-stol",
   emoji: "🎉",
+  image: "/img/guides/prazdnichnyy-stol.webp",
   updated: "2026-09-26",
   title: {
     ru: "Праздничный стол без стресса: сколько готовить, что заранее и как всё успеть",

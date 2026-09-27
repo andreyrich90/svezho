@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "blyuda-iz-farsha",
   emoji: "🍔",
+  image: "/img/guides/blyuda-iz-farsha.webp",
   updated: "2026-09-26",
   title: {
     ru: "Фарш: бургеры, тефтели, голубцы и мясной рулет — правила для каждого",
