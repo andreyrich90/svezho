@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "kak-gotovit-ovoshchi",
   emoji: "🥦",
+  image: "/img/guides/kak-gotovit-ovoshchi.webp",
   updated: "2026-09-26",
   title: {
     ru: "Овощи, которые хочется есть: запекание, бланширование и карамелизация",

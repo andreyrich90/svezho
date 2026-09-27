@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "vypechka-bez-yaic-i-glyutena",
   emoji: "🌾",
+  image: "/img/guides/vypechka-bez-yaic-i-glyutena.webp",
   updated: "2026-09-26",
   title: {
     ru: "Выпечка без яиц, глютена и молока: чем заменить и как не испортить",

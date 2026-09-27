@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "sloenoe-i-shtrudelnoe-testo",
   emoji: "🥮",
+  image: "/img/guides/sloenoe-i-shtrudelnoe-testo.webp",
   updated: "2026-09-26",
   title: {
     ru: "Слоёное и штрудельное тесто: сотни слоёв и тесто, сквозь которое читают газету",

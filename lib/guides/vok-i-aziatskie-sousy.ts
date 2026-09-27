@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "vok-i-aziatskie-sousy",
   emoji: "🥢",
+  image: "/img/guides/vok-i-aziatskie-sousy.webp",
   updated: "2026-09-26",
   title: {
     ru: "Вок и азиатские соусы: стир-фрай как в ресторане и соусы без банок",

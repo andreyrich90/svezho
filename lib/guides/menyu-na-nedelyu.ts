@@ -3,6 +3,7 @@ import type { Guide } from "./types";
 export const guide: Guide = {
   slug: "menyu-na-nedelyu",
   emoji: "📋",
+  image: "/img/guides/menyu-na-nedelyu.webp",
   updated: "2026-09-26",
   title: {
     ru: "Меню на неделю: как планировать, экономить и не выбрасывать продукты",
