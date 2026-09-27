@@ -9,7 +9,14 @@ import type { Recipe } from "./types";
 //   steps: public/img/recipes/<slug>/step-1.webp … step-N.webp
 //
 // `steps` is the number of step photos, in step order.
-export const RECIPE_PHOTOS: Record<string, { cover?: boolean; steps?: number }> = {};
+export const RECIPE_PHOTOS: Record<string, { cover?: boolean; steps?: number }> = {
+  "ovsyanka-s-yagodami": { cover: true },
+  "tost-s-avokado-i-yaycom": { cover: true },
+  "pyshnye-blinchiki": { cover: true },
+  "grecheskiy-salat": { cover: true },
+  "tomatnyy-krem-sup": { cover: true },
+  "kurica-s-kinoa-bowl": { cover: true },
+};
 
 const isPlaceholder = (src?: string | null) => !src || !src.trim() || /\.svg(\?|$)/i.test(src);
 
