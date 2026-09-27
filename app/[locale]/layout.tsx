@@ -12,11 +12,11 @@ import { SITE_URL, alternates, ogLocale, OG_FALLBACK } from "@/lib/seo";
 import { siteJsonLd, jsonLdScript } from "@/lib/jsonld";
 
 const ADSENSE_ID = process.env.NEXT_PUBLIC_ADSENSE_ID;
-// Google Analytics 4 measurement id (G-XXXXXXX). Validated because it is
-// interpolated into an inline script.
-const GA_ID = /^G-[A-Z0-9]+$/.test(process.env.NEXT_PUBLIC_GA_ID ?? "")
-  ? process.env.NEXT_PUBLIC_GA_ID
-  : undefined;
+// Google Analytics 4 measurement id. The recepto.org stream id is public (it
+// ships in every page's HTML anyway), so it's the default; NEXT_PUBLIC_GA_ID
+// overrides it. Validated because it is interpolated into an inline script.
+const GA_ID_RAW = process.env.NEXT_PUBLIC_GA_ID || "G-F8L7EMXB40";
+const GA_ID = /^G-[A-Z0-9]+$/.test(GA_ID_RAW) ? GA_ID_RAW : undefined;
 
 // Consent Mode v2: until the visitor presses "Accept" in the cookie banner,
 // GA runs cookieless (storage denied); CookieBanner flips it to granted.
