@@ -34,6 +34,12 @@ export const RECIPE_PHOTOS: Record<string, { cover?: boolean; steps?: number }> 
   "kartofelnye-kotlety-s-gribami": { cover: true },
   "grechnevye-kotlety-s-gribami": { cover: true },
   "kapustnye-kotlety-s-syrom": { cover: true },
+  "krevetki-v-chesnochnom-masle": { cover: true },
+  "krevetki-medovo-chili": { cover: true },
+  "krevetki-v-slivochnom-souse": { cover: true },
+  "hrustyaschie-krevetki": { cover: true },
+  "kokosovoe-karri-s-krevetkami": { cover: true },
+  "krevetki-teriyaki": { cover: true },
 };
 
 const isPlaceholder = (src?: string | null) => !src || !src.trim() || /\.svg(\?|$)/i.test(src);
