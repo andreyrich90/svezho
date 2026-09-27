@@ -28,6 +28,12 @@ export const RECIPE_PHOTOS: Record<string, { cover?: boolean; steps?: number }> 
   "domashnie-myasnye-kotlety": { cover: true },
   "pozharskie-kotlety": { cover: true },
   "kurinye-kotlety-s-syrom": { cover: true },
+  "kotlety-iz-indeyki-s-kabachkom": { cover: true },
+  "rybnye-kotlety-iz-mintaya": { cover: true },
+  "pechenochnye-kotlety-s-risom": { cover: true },
+  "kartofelnye-kotlety-s-gribami": { cover: true },
+  "grechnevye-kotlety-s-gribami": { cover: true },
+  "kapustnye-kotlety-s-syrom": { cover: true },
 };
 
 const isPlaceholder = (src?: string | null) => !src || !src.trim() || /\.svg(\?|$)/i.test(src);
