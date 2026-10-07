@@ -14,7 +14,9 @@ export function middleware(req: NextRequest) {
 
   const url = req.nextUrl.clone();
   url.pathname = `/${DEFAULT_LANG}${pathname === "/" ? "" : pathname}`;
-  return NextResponse.redirect(url);
+  // Permanent: these paths never change, so search engines should move their
+  // signals to the localized URL instead of keeping the bare one around.
+  return NextResponse.redirect(url, 308);
 }
 
 export const config = {
