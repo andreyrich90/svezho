@@ -62,6 +62,9 @@ export async function generateMetadata({
     },
     description: dict["seo.homeDescription"],
     metadataBase: new URL(SITE_URL),
+    // Pinterest site claim (Settings → Claimed accounts → Website). Harmless to
+    // keep after the claim succeeds; removing it un-claims the site.
+    verification: { other: { "p:domain_verify": "2ff1e71c81fcbb3c4e3882a24920df7c" } },
     alternates: alternates("", lang),
     openGraph: {
       title: `${dict["brand"]} — ${dict["seo.homeTitle"]}`,
