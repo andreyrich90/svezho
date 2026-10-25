@@ -19,7 +19,7 @@ export async function generateMetadata({
   const t = getDict(lang);
   return {
     title: t["lifehacks.title"],
-    description: t["lifehacks.subtitle"],
+    description: t["seo.lifehacksDescription"],
     alternates: alternates("/lifehacks", lang),
   };
 }

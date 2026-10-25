@@ -32,7 +32,7 @@ export default function CollectionCard({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={cover}
-        alt=""
+        alt={pick(title, lang)}
         className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/40 to-ink/10" />

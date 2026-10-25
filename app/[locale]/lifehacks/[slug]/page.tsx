@@ -3,9 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getDict } from "@/lib/i18n";
-import { isLang, pick, LOCALES, type Lang } from "@/lib/langs";
+import { isLang, pick, langsOf, LOCALES, type Lang } from "@/lib/langs";
 import { href } from "@/lib/nav";
-import { alternates } from "@/lib/seo";
+import { alternates, absUrl, isRealPhoto, ogLocale, OG_FALLBACK } from "@/lib/seo";
+import { articleJsonLd, breadcrumbJsonLd, jsonLdScript } from "@/lib/jsonld";
 import { getLifehack, getLifehacks } from "@/lib/content";
 
 // Re-read from the database in the background at most every 30s (ISR),
@@ -28,15 +29,23 @@ export async function generateMetadata({
   const lang: Lang = isLang(locale) ? locale : "ru";
   const item = await getLifehack(slug);
   if (!item) return { title: "404" };
+  const title = pick(item.title, lang);
+  const description = pick(item.summary, lang);
+  // Lifehack illustrations are SVG, which Facebook/Telegram/X cannot show as a
+  // share card — fall back to the branded PNG until a real photo is attached.
+  const image = isRealPhoto(item.image) ? absUrl(item.image) : OG_FALLBACK;
   return {
-    title: pick(item.title, lang),
-    description: pick(item.summary, lang),
-    alternates: alternates(`/lifehacks/${item.slug}`, lang),
+    title,
+    description,
+    alternates: alternates(`/lifehacks/${item.slug}`, lang, langsOf(item.body)),
     openGraph: {
-      title: pick(item.title, lang),
-      description: pick(item.summary, lang),
-      images: [item.image],
+      type: "article",
+      title,
+      description,
+      images: [image],
+      locale: ogLocale(lang),
     },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }
 
@@ -51,8 +60,26 @@ export default async function LifehackPage({
   const item = await getLifehack(slug);
   if (!item) notFound();
 
+  const title = pick(item.title, lang);
+  const jsonLd = [
+    articleJsonLd({
+      lang,
+      path: `/lifehacks/${item.slug}`,
+      headline: title,
+      description: pick(item.summary, lang),
+      updated: item.createdAt,
+      image: isRealPhoto(item.image) ? item.image : OG_FALLBACK,
+    }),
+    breadcrumbJsonLd(lang, [
+      { name: t["nav.home"], path: "/" },
+      { name: t["lifehacks.title"], path: "/lifehacks" },
+      { name: title, path: `/lifehacks/${item.slug}` },
+    ]),
+  ];
+
   return (
     <article className="mx-auto max-w-3xl px-4 py-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(jsonLd) }} />
       <Link
         href={href(lang, "/lifehacks")}
         className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted transition hover:text-ink"

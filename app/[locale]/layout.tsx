@@ -57,15 +57,15 @@ export async function generateMetadata({
   const dict = getDict(lang);
   return {
     title: {
-      default: `${dict["brand"]} — ${dict["brand.tagline"]}`,
+      default: `${dict["brand"]} — ${dict["seo.homeTitle"]}`,
       template: `%s · ${dict["brand"]}`,
     },
-    description: dict["brand.tagline"],
+    description: dict["seo.homeDescription"],
     metadataBase: new URL(SITE_URL),
     alternates: alternates("", lang),
     openGraph: {
-      title: `${dict["brand"]} — ${dict["brand.tagline"]}`,
-      description: dict["brand.tagline"],
+      title: `${dict["brand"]} — ${dict["seo.homeTitle"]}`,
+      description: dict["seo.homeDescription"],
       type: "website",
       siteName: dict["brand"],
       locale: ogLocale(lang),
@@ -74,8 +74,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${dict["brand"]} — ${dict["brand.tagline"]}`,
-      description: dict["brand.tagline"],
+      title: `${dict["brand"]} — ${dict["seo.homeTitle"]}`,
+      description: dict["seo.homeDescription"],
       images: [OG_FALLBACK],
     },
   };

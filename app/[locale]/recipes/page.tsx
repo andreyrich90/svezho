@@ -21,7 +21,7 @@ export async function generateMetadata({
   const t = getDict(lang);
   return {
     title: t["recipes.title"],
-    description: t["recipes.subtitle"],
+    description: t["seo.recipesDescription"],
     alternates: alternates("/recipes", lang),
   };
 }

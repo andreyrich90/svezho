@@ -8,6 +8,10 @@ export type Dict = Record<string, string>;
 const ru: Dict = {
   "brand": "Recepto",
   "brand.tagline": "Рецепты, ПП и кухонные лайфхаки",
+  "seo.homeTitle": "Рецепты с фото пошагово, ПП и секреты кухни",
+  "seo.homeDescription": "Простые рецепты с фото пошагово: завтраки, супы, котлеты, салаты и десерты. ПП-блюда с КБЖУ, секреты кухни от поваров и лайфхаки на каждый день.",
+  "seo.recipesDescription": "Все рецепты Recepto с фото пошагово: завтраки, супы, основные блюда, салаты, выпечка и десерты. Ищите по категории, времени приготовления или продукту.",
+  "seo.lifehacksDescription": "Кухонные лайфхаки, которые реально работают: как хранить зелень, резать лук без слёз, отмыть сковороду, правильно замораживать и экономить на продуктах.",
 
   "nav.recipes": "Рецепты",
   "nav.pp": "ПП",
@@ -175,6 +179,10 @@ const ru: Dict = {
 const en: Dict = {
   "brand": "Recepto",
   "brand.tagline": "Recipes, healthy eating & kitchen lifehacks",
+  "seo.homeTitle": "Step-by-step photo recipes & kitchen secrets",
+  "seo.homeDescription": "Easy step-by-step photo recipes: breakfasts, soups, cutlets, salads and desserts. Healthy dishes with macros, kitchen secrets and everyday lifehacks.",
+  "seo.recipesDescription": "All Recepto recipes with step-by-step photos: breakfasts, soups, mains, salads, baking and desserts. Search by category, cooking time or ingredient.",
+  "seo.lifehacksDescription": "Kitchen lifehacks that actually work: keep herbs fresh, cut onions without tears, clean a burnt pan, freeze food properly and save money on groceries.",
 
   "nav.recipes": "Recipes",
   "nav.pp": "Healthy",
@@ -342,6 +350,10 @@ const en: Dict = {
 const ua: Dict = {
   "brand": "Recepto",
   "brand.tagline": "Рецепти, ПХ та кухонні лайфхаки",
+  "seo.homeTitle": "Рецепти з фото покроково, ПХ та секрети кухні",
+  "seo.homeDescription": "Прості рецепти з фото покроково: сніданки, супи, котлети, салати й десерти. Страви правильного харчування з КБЖВ, секрети кухні від кухарів і лайфхаки на щодень.",
+  "seo.recipesDescription": "Усі рецепти Recepto з фото покроково: сніданки, супи, основні страви, салати, випічка й десерти. Шукайте за категорією, часом приготування або продуктом.",
+  "seo.lifehacksDescription": "Кухонні лайфхаки, що справді працюють: як зберігати зелень, різати цибулю без сліз, відмити сковороду, правильно заморожувати й економити на продуктах.",
 
   "nav.recipes": "Рецепти",
   "nav.pp": "ПХ",

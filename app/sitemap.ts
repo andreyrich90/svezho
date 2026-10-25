@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { LOCALES, type Lang } from "@/lib/langs";
+import { LOCALES, langsOf, type Lang } from "@/lib/langs";
 import { SITE_URL, localePath, isRealPhoto, absUrl } from "@/lib/seo";
 import { INGREDIENT_LANDINGS, recipesWithIngredient, MIN_LANDING_RECIPES } from "@/lib/landings";
 import { COLLECTIONS } from "@/lib/collections";
@@ -19,11 +19,14 @@ function entries(
   path: string,
   priority: number,
   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"],
-  opts: { lastModified?: Date; images?: string[] } = {}
+  opts: { lastModified?: Date; images?: string[]; langs?: Lang[] } = {}
 ): MetadataRoute.Sitemap {
+  // Only languages the content is written in: a language that would show the
+  // Russian fallback is a duplicate, not a translation (see alternates()).
+  const langs = opts.langs ?? LOCALES;
   const languages: Record<string, string> = {};
-  for (const l of LOCALES) languages[HREFLANG[l]] = `${SITE_URL}${localePath(l, path)}`;
-  return LOCALES.map((l) => ({
+  for (const l of langs) languages[HREFLANG[l]] = `${SITE_URL}${localePath(l, path)}`;
+  return langs.map((l) => ({
     url: `${SITE_URL}${localePath(l, path)}`,
     lastModified: opts.lastModified ?? new Date(),
     changeFrequency,
@@ -67,12 +70,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...entries(`/recipes/${r.slug}`, 0.9, "weekly", {
         lastModified: created && !isNaN(+created) ? created : undefined,
         images,
+        langs: langsOf(r.steps),
       })
     );
   }
   for (const g of GUIDES)
     out.push(...entries(`/guides/${g.slug}`, 0.8, "monthly", { lastModified: new Date(g.updated) }));
-  for (const l of lifehacks) out.push(...entries(`/lifehacks/${l.slug}`, 0.6, "monthly"));
+  for (const l of lifehacks)
+    out.push(...entries(`/lifehacks/${l.slug}`, 0.6, "monthly", { langs: langsOf(l.body) }));
 
   return out;
 }

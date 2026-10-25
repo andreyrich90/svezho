@@ -98,7 +98,7 @@ export default async function HomePage({
             {heroImgs[0] && (
               <div className="rise rise-2 mt-9 overflow-hidden rounded-[24px] border-[5px] border-cream shadow-soft lg:hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={heroImgs[0].image} alt="" className="h-56 w-full object-cover sm:h-72" />
+                <img src={heroImgs[0].image} alt={pick(heroImgs[0].title, lang)} className="h-56 w-full object-cover sm:h-72" />
               </div>
             )}
           </div>
@@ -111,13 +111,13 @@ export default async function HomePage({
             {heroImgs[0] && (
               <div className="absolute right-0 top-0 z-20 h-[380px] w-[78%] overflow-hidden rounded-[28px] border-[6px] border-cream shadow-soft">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={heroImgs[0].image} alt="" className="h-full w-full object-cover" />
+                <img src={heroImgs[0].image} alt={pick(heroImgs[0].title, lang)} className="h-full w-full object-cover" />
               </div>
             )}
             {heroImgs[1] && (
               <div className="absolute bottom-0 left-0 z-20 h-[230px] w-[52%] overflow-hidden rounded-[28px] border-[6px] border-cream shadow-soft">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={heroImgs[1].image} alt="" className="h-full w-full object-cover" />
+                <img src={heroImgs[1].image} alt={pick(heroImgs[1].title, lang)} className="h-full w-full object-cover" />
               </div>
             )}
           </div>

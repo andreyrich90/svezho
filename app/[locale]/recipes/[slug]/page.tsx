@@ -6,7 +6,7 @@ import AdSlot from "@/components/AdSlot";
 import RecipeCard from "@/components/RecipeCard";
 import PopularLinks from "@/components/PopularLinks";
 import { getDict } from "@/lib/i18n";
-import { isLang, pick, LOCALES, type Lang } from "@/lib/langs";
+import { isLang, pick, langsOf, LOCALES, type Lang } from "@/lib/langs";
 import { href } from "@/lib/nav";
 import { alternates, ogLocale, OG_FALLBACK, isRealPhoto, absUrl } from "@/lib/seo";
 import { categoryLanding, ingredientLandingsFor } from "@/lib/landings";
@@ -48,7 +48,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: alternates(`/recipes/${recipe.slug}`, lang),
+    alternates: alternates(`/recipes/${recipe.slug}`, lang, langsOf(recipe.steps)),
     openGraph: {
       type: "article",
       title,

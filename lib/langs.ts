@@ -22,6 +22,13 @@ export function isLang(v: string | undefined | null): v is Lang {
 // default language so nothing renders blank.
 export type Localized<T = string> = { ru: T; en: T; ua?: T };
 
+/** Languages a piece of content is actually written in. `ru` always is; a
+ *  language whose text is missing would only show the Russian fallback, so it
+ *  must not be offered to search engines as a translation of its own. */
+export function langsOf(value: Localized<unknown>): Lang[] {
+  return LOCALES.filter((l) => l === "ru" || value[l] != null);
+}
+
 export function pick<T>(value: Localized<T>, lang: Lang): T {
   // `.ru` is always present (required in Localized); ua may be absent and falls
   // back to it. Index with the literal so the fallback is typed as T, not T|undefined.

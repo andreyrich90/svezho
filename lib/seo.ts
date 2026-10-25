@@ -39,12 +39,22 @@ export function localePath(lang: Lang, path = ""): string {
 // Build canonical + hreflang alternates for a locale-agnostic path.
 // `path` is without the locale prefix, e.g. "" (home), "/recipes",
 // "/recipes/garlic-shrimp".
-export function alternates(path: string, lang: Lang): NonNullable<Metadata["alternates"]> {
+//
+// `langs` lists the languages the content really exists in (see langsOf). A
+// page opened in any other language shows the Russian fallback, so it points
+// its canonical at the Russian page and stays out of the hreflang set —
+// otherwise /ua/... would be indexed as a duplicate of /ru/... .
+export function alternates(
+  path: string,
+  lang: Lang,
+  langs: Lang[] = LOCALES
+): NonNullable<Metadata["alternates"]> {
   const languages: Record<string, string> = {};
-  for (const l of LOCALES) languages[HREFLANG[l]] = `${SITE_URL}${localePath(l, path)}`;
+  for (const l of langs) languages[HREFLANG[l]] = `${SITE_URL}${localePath(l, path)}`;
   languages["x-default"] = `${SITE_URL}${localePath(DEFAULT_LANG, path)}`;
+  const own = langs.includes(lang) ? lang : DEFAULT_LANG;
   return {
-    canonical: `${SITE_URL}${localePath(lang, path)}`,
+    canonical: `${SITE_URL}${localePath(own, path)}`,
     languages,
   };
 }
