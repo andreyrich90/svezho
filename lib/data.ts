@@ -1,5 +1,7 @@
 import type { Lifehack, Recipe } from "./types";
 import { EXTRA_LIFEHACKS } from "./lifehacks-extra";
+import { withUaRecipe } from "./ua-recipes";
+import { withLifehackCopy } from "./lifehack-copy";
 
 // Built-in seed content. This is what renders when Supabase is not configured,
 // and it doubles as the reference shape for the `recipes` / `lifehacks` tables
@@ -7,7 +9,7 @@ import { EXTRA_LIFEHACKS } from "./lifehacks-extra";
 // (scripts/generate-images.mjs) in the "Свежо" palette — the site needs no
 // external image host. Swap `image` for a photo URL any time.
 
-export const SEED_RECIPES: Recipe[] = [
+const RAW_RECIPES: Recipe[] = [
   {
     id: "r-oatmeal",
     slug: "ovsyanka-s-yagodami",
@@ -2562,4 +2564,6 @@ const BASE_LIFEHACKS: Lifehack[] = [
 ];
 
 // First batch above + the second batch kept in its own file.
-export const SEED_LIFEHACKS: Lifehack[] = [...BASE_LIFEHACKS, ...EXTRA_LIFEHACKS];
+export const SEED_RECIPES: Recipe[] = RAW_RECIPES.map(withUaRecipe);
+
+export const SEED_LIFEHACKS: Lifehack[] = [...BASE_LIFEHACKS, ...EXTRA_LIFEHACKS].map(withLifehackCopy);
