@@ -28,7 +28,9 @@ function entries(
   for (const l of langs) languages[HREFLANG[l]] = `${SITE_URL}${localePath(l, path)}`;
   return langs.map((l) => ({
     url: `${SITE_URL}${localePath(l, path)}`,
-    lastModified: opts.lastModified ?? new Date(),
+    // Omitted when unknown: a lastmod that is always "now" teaches Google to
+    // ignore lastmod for the whole site.
+    ...(opts.lastModified ? { lastModified: opts.lastModified } : {}),
     changeFrequency,
     priority,
     alternates: { languages },
@@ -52,23 +54,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ["/privacy", 0.2, "yearly"],
   ];
 
+  // Lists change when content is added, so they carry the newest content date.
+  const dateOf = (s?: string) => {
+    const d = s ? new Date(s) : undefined;
+    return d && !isNaN(+d) ? d : undefined;
+  };
+  const newest = [...recipes, ...lifehacks]
+    .map((x) => dateOf(x.createdAt))
+    .concat(GUIDES.map((g) => dateOf(g.updated)))
+    .reduce<Date | undefined>((a, d) => (d && (!a || d > a) ? d : a), undefined);
+
   const out: MetadataRoute.Sitemap = [];
-  for (const [p, prio, cf] of staticPaths) out.push(...entries(p, prio, cf));
+  for (const [p, prio, cf] of staticPaths)
+    out.push(...entries(p, prio, cf, prio >= 0.7 ? { lastModified: newest } : {}));
   for (const cat of RECIPE_CATEGORIES) {
     if (recipes.filter((r) => r.category === cat).length >= MIN_LANDING_RECIPES)
-      out.push(...entries(`/recipes/category/${cat}`, 0.8, "weekly"));
+      out.push(...entries(`/recipes/category/${cat}`, 0.8, "weekly", { lastModified: newest }));
   }
   for (const l of INGREDIENT_LANDINGS) {
     if (recipesWithIngredient(recipes, l).length >= MIN_LANDING_RECIPES)
-      out.push(...entries(`/recipes/ingredient/${l.slug}`, 0.8, "weekly"));
+      out.push(...entries(`/recipes/ingredient/${l.slug}`, 0.8, "weekly", { lastModified: newest }));
   }
   for (const c of COLLECTIONS) out.push(...entries(`/collections/${c.slug}`, 0.7, "weekly"));
   for (const r of recipes) {
     const images = [r.image, ...(r.gallery ?? [])].filter(isRealPhoto).map(absUrl);
-    const created = r.createdAt ? new Date(r.createdAt) : undefined;
     out.push(
       ...entries(`/recipes/${r.slug}`, 0.9, "weekly", {
-        lastModified: created && !isNaN(+created) ? created : undefined,
+        lastModified: dateOf(r.createdAt),
         images,
         langs: langsOf(r.steps),
       })
@@ -77,7 +89,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const g of GUIDES)
     out.push(...entries(`/guides/${g.slug}`, 0.8, "monthly", { lastModified: new Date(g.updated) }));
   for (const l of lifehacks)
-    out.push(...entries(`/lifehacks/${l.slug}`, 0.6, "monthly", { langs: langsOf(l.body) }));
+    out.push(...entries(`/lifehacks/${l.slug}`, 0.6, "monthly", {
+      lastModified: dateOf(l.createdAt),
+      langs: langsOf(l.body),
+    }));
 
   return out;
 }
