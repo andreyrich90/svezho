@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import RecipeCard from "@/components/RecipeCard";
@@ -96,9 +97,9 @@ export default async function HomePage({
 
             {/* Hero image on mobile (the side visual is desktop-only). */}
             {heroImgs[0] && (
-              <div className="rise rise-2 mt-9 overflow-hidden rounded-[24px] border-[5px] border-cream shadow-soft lg:hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={heroImgs[0].image} alt={pick(heroImgs[0].title, lang)} className="h-56 w-full object-cover sm:h-72" />
+              <div className="rise rise-2 relative mt-9 h-56 overflow-hidden rounded-[24px] border-[5px] border-cream shadow-soft sm:h-72 lg:hidden">
+                {/* "1px" from lg up: the desktop layout hides this copy, so it fetches a thumbnail at most. */}
+                <Image src={heroImgs[0].image} alt={pick(heroImgs[0].title, lang)} fill sizes="(min-width: 1024px) 1px, 100vw" className="object-cover" />
               </div>
             )}
           </div>
@@ -110,14 +111,13 @@ export default async function HomePage({
             </div>
             {heroImgs[0] && (
               <div className="absolute right-0 top-0 z-20 h-[380px] w-[78%] overflow-hidden rounded-[28px] border-[6px] border-cream shadow-soft">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={heroImgs[0].image} alt={pick(heroImgs[0].title, lang)} className="h-full w-full object-cover" />
+                {/* The desktop LCP. Eager, but "1px" below lg keeps phones from downloading it full size. */}
+                <Image src={heroImgs[0].image} alt={pick(heroImgs[0].title, lang)} fill loading="eager" sizes="(min-width: 1024px) 460px, 1px" className="object-cover" />
               </div>
             )}
             {heroImgs[1] && (
               <div className="absolute bottom-0 left-0 z-20 h-[230px] w-[52%] overflow-hidden rounded-[28px] border-[6px] border-cream shadow-soft">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={heroImgs[1].image} alt={pick(heroImgs[1].title, lang)} className="h-full w-full object-cover" />
+                <Image src={heroImgs[1].image} alt={pick(heroImgs[1].title, lang)} fill sizes="(min-width: 1024px) 300px, 1px" className="object-cover" />
               </div>
             )}
           </div>

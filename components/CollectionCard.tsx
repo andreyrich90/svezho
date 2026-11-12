@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useLang, useT } from "./DictProvider";
@@ -29,11 +30,13 @@ export default function CollectionCard({
       href={href(lang, `/collections/${slug}`)}
       className="group relative flex min-h-[220px] flex-col justify-end overflow-hidden rounded-xl2 border border-line p-6 text-cream shadow-card transition hover:-translate-y-1 hover:shadow-soft"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={cover}
         alt={pick(title, lang)}
-        className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        fill
+        sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+        unoptimized={cover.endsWith(".svg")}
+        className="absolute inset-0 object-cover transition duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/40 to-ink/10" />
       <div className="relative">

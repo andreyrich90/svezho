@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Clock, Flame, Heart, Users } from "lucide-react";
 import { useLang, useT } from "./DictProvider";
@@ -18,17 +19,18 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
       className="group flex flex-col overflow-hidden rounded-xl2 border border-line bg-card shadow-card transition duration-300 hover:-translate-y-1.5 hover:shadow-soft"
     >
       <div className="relative h-[200px] overflow-hidden bg-cream2">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={recipe.image}
           alt={pick(recipe.title, lang)}
-          loading="lazy"
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.08]"
+          fill
+          sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+          unoptimized={recipe.image.endsWith(".svg")}
+          className="object-cover transition duration-500 group-hover:scale-[1.08]"
         />
-        <span className="absolute left-3.5 top-3.5 rounded-full bg-surface/92 px-3 py-1.5 text-[11.5px] font-extrabold tracking-wide text-clay shadow-card">
+        <span className="absolute left-3.5 top-3.5 rounded-full bg-surface/90 px-3 py-1.5 text-[11.5px] font-extrabold tracking-wide text-clay shadow-card">
           {t(`cat.${recipe.category}`)}
         </span>
-        <span className="absolute right-3.5 top-3.5 flex h-[34px] w-[34px] items-center justify-center rounded-full bg-surface/92 text-clay shadow-card transition group-hover:scale-110">
+        <span className="absolute right-3.5 top-3.5 flex h-[34px] w-[34px] items-center justify-center rounded-full bg-surface/90 text-clay shadow-card transition group-hover:scale-110">
           <Heart size={16} />
         </span>
       </div>

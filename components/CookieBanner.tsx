@@ -29,13 +29,17 @@ function updateConsent(granted: boolean) {
 export default function CookieBanner() {
   const t = useT();
   const lang = useLang();
-  const [show, setShow] = useState(false);
+  // Rendered in the server HTML so it paints with the page: mounting it only
+  // after hydration made it the page's Largest Contentful Paint, 6 s late on a
+  // slow phone. Visitors who already answered never see it — the pre-paint
+  // script in layout.tsx sets html[data-cookie], which hides it in CSS.
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     try {
-      if (!localStorage.getItem(KEY)) setShow(true);
+      if (localStorage.getItem(KEY)) setShow(false);
     } catch {
-      /* localStorage unavailable — just don't show */
+      /* localStorage unavailable — keep it shown */
     }
     const reopen = () => setShow(true);
     window.addEventListener(COOKIE_SETTINGS_EVENT, reopen);
@@ -55,7 +59,7 @@ export default function CookieBanner() {
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 px-4 pb-4">
+    <div className="cookie-banner fixed inset-x-0 bottom-0 z-50 px-4 pb-4">
       <div className="mx-auto flex max-w-3xl flex-col items-start gap-3 rounded-xl2 border border-line bg-surface p-4 shadow-soft sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm leading-relaxed text-ink/80">
           {t("cookie.text")}{" "}

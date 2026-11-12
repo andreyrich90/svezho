@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useLang, useT } from "./DictProvider";
@@ -16,13 +17,14 @@ export default function LifehackCard({ item }: { item: Lifehack }) {
       href={href(lang, `/lifehacks/${item.slug}`)}
       className="group flex gap-4 overflow-hidden rounded-xl2 border border-line bg-card p-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-soft"
     >
-      <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-line">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+      <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-line">
+        <Image
           src={item.image}
           alt={pick(item.title, lang)}
-          loading="lazy"
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          fill
+          sizes="96px"
+          unoptimized={item.image.endsWith(".svg")}
+          className="object-cover transition duration-500 group-hover:scale-105"
         />
       </div>
       <div className="flex min-w-0 flex-1 flex-col">

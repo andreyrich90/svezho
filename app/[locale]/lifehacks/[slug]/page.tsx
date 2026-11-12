@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -96,11 +97,15 @@ export default async function LifehackPage({
       <p className="mt-3 text-lg text-muted">{pick(item.summary, lang)}</p>
 
       <div className="mt-6 overflow-hidden rounded-xl2 border border-line shadow-soft">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={item.image}
           alt={pick(item.title, lang)}
-          className="aspect-[16/9] w-full object-cover"
+          width={1200}
+          height={675}
+          priority
+          sizes="(min-width: 768px) 768px, 100vw"
+          unoptimized={item.image.endsWith(".svg")}
+          className="aspect-[16/9] h-auto w-full object-cover"
         />
       </div>
 

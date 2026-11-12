@@ -135,3 +135,6 @@ body::before {
     scroll-behavior: auto !important;
   }
 }
+
+/* Answered already: hidden before paint (see the theme script in layout.tsx). */
+html[data-cookie] .cookie-banner { display: none; }

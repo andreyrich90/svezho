@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ChevronRight, Clock, Flame, Gauge, Users } from "lucide-react";
@@ -147,13 +148,16 @@ export default async function RecipePage({
       <p className="mt-3 max-w-2xl text-lg text-muted">{pick(recipe.description, lang)}</p>
 
       <div className="mt-6 overflow-hidden rounded-xl2 border border-line bg-cream2 shadow-soft">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        {/* Covers are 4:3; the width/height only reserve that box before load. */}
+        <Image
           src={recipe.image}
           alt={title}
-          fetchPriority="high"
-          decoding="async"
-          className="mx-auto max-h-[600px] w-full object-contain"
+          width={1200}
+          height={900}
+          priority
+          sizes="(min-width: 896px) 864px, 100vw"
+          unoptimized={recipe.image.endsWith(".svg")}
+          className="mx-auto h-auto max-h-[600px] w-full object-contain"
         />
       </div>
 
@@ -202,12 +206,13 @@ export default async function RecipePage({
                   <div className="min-w-0 flex-1">
                     <p className="pt-1 leading-relaxed text-ink">{step}</p>
                     {photo && (
-                      /* eslint-disable-next-line @next/next/no-img-element */
-                      <img
+                      <Image
                         src={photo}
                         alt={`${title} — ${t["recipe.stepAlt"]} ${i + 1}`}
-                        loading="lazy"
-                        className="mt-3 w-full max-w-md rounded-xl border border-line object-cover"
+                        width={1200}
+                        height={900}
+                        sizes="448px"
+                        className="mt-3 h-auto w-full max-w-md rounded-xl border border-line object-cover"
                       />
                     )}
                   </div>

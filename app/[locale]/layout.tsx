@@ -93,6 +93,9 @@ const themeScript = `
   if(localStorage.getItem('polezno-theme')==='dark'){
     document.documentElement.setAttribute('data-theme','dark');
   }
+  if(localStorage.getItem('recepto-cookie')){
+    document.documentElement.setAttribute('data-cookie','1');
+  }
 }catch(e){}})();
 `;
 
